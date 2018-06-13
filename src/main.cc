@@ -1,10 +1,22 @@
+#include <stdlib.h>
 #include <time.h>
 
+#include <csignal>
 #include <iostream>
 
 #include "game.h"
 
+void HandleSignal(int signum) {
+  std::cout << "Interrupt signal (" << signum << ") received." << std::endl;
+
+  // cleanup
+  
+  exit(signum);
+}
+
 int main() {
+  signal(SIGINT, HandleSignal);
+
   guemud::Game game;
 
   struct timespec loop_time, loop_remain;
@@ -18,7 +30,7 @@ int main() {
     nanosleep(&loop_time, &loop_remain); // yield thread to OS
   }
 
-  std::cout << "Exited!" << std::endl;
+  std::cout << "Exited." << std::endl;
 
   return 0;
 }
