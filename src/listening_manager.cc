@@ -11,7 +11,8 @@ void guemud::ListeningManager::Listen() {
   struct sockaddr_in new_socket_addr;
   socklen_t new_socket_size = sizeof(new_socket_addr);
 
-  int new_socket = accept(socket_.GetSocket(), (struct sockaddr*)&new_socket_addr, &new_socket_size);
+  // TODO: Use select()
+  int new_socket = accept4(socket_.GetSocket(), (struct sockaddr*)&new_socket_addr, &new_socket_size, SOCK_NONBLOCK);
 
   if (new_socket == -1) {
     if (errno != EWOULDBLOCK && errno != EAGAIN) {
