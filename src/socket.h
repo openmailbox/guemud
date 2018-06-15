@@ -7,6 +7,8 @@
 
 namespace guemud {
   class Socket {
+    public:
+      int GetSocket();
     protected:
       struct sockaddr_in local_info_;
       int socket_;

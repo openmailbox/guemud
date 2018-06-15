@@ -7,7 +7,7 @@
 #include "socket.h"
 
 namespace guemud {
-  class ListeningSocket : Socket {
+  class ListeningSocket : public Socket {
     public:
       void Listen(int port);
   };
