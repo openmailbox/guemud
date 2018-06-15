@@ -26,11 +26,13 @@ int main() {
 
     struct timespec loop_time, loop_remain;
     loop_time.tv_nsec = 1000;
+    loop_time.tv_sec  = 0;
 
     std::cout << "Starting GueMUD..." << std::endl;
 
     while (game.IsRunning()) {
       listening_manager.Listen();
+      connection_manager.Manage();
       game.ExecuteLoop();
       nanosleep(&loop_time, &loop_remain); // yield thread to OS
     }

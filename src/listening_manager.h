@@ -7,12 +7,12 @@
 namespace guemud {
   class ListeningManager {
     public:
-      ListeningManager(int port, ConnectionManager manager);
+      ListeningManager(int port, ConnectionManager& manager);
       void Listen();
     private:
-      ConnectionManager connection_manager_;
-      int               port_;
-      ListeningSocket   socket_;
+      ConnectionManager& connection_manager_;
+      int                port_;
+      ListeningSocket    socket_;
   };
 }
 

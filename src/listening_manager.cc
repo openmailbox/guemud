@@ -1,6 +1,6 @@
 #include "listening_manager.h"
 
-guemud::ListeningManager::ListeningManager(int port, ConnectionManager manager)
+guemud::ListeningManager::ListeningManager(int port, ConnectionManager& manager)
   : connection_manager_(manager),
     port_(port) {
   socket_  = ListeningSocket();
@@ -15,8 +15,10 @@ void guemud::ListeningManager::Listen() {
   int new_socket = accept4(socket_.GetSocket(), (struct sockaddr*)&new_socket_addr, &new_socket_size, SOCK_NONBLOCK);
 
   if (new_socket == -1) {
-    if (errno != EWOULDBLOCK && errno != EAGAIN) {
-      throw errno;
-    }
+    if (errno != EWOULDBLOCK && errno != EAGAIN) throw errno;
+
+    return;
   }
+
+  connection_manager_.NewConnection(new_socket);
 }
