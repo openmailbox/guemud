@@ -13,36 +13,34 @@ void guemud::ConnectionManager::Manage() {
   zerotime.tv_sec = 0;
   activity_set_ = socket_set_;
 
-  int err = select((*(connections_.rbegin())).GetSocket() + 1, &activity_set_, NULL, NULL, &zerotime);
+  int err = select((*(connections_.rbegin()))->GetSocket() + 1, &activity_set_, NULL, NULL, &zerotime);
 
-  if (err == -1) throw errno;
-  if (err < 1) return;
+  if (err == -1) throw errno; if (err < 1) return;
 
-  char buffer[1024];
-  std::set<Connection>::iterator itr = connections_.begin();
-  std::set<Connection>::iterator current;
+  std::set<Connection*>::iterator itr = connections_.begin();
+  std::set<Connection*>::iterator current;
 
   while (itr != connections_.end()) {
     current = itr++;
 
-    if (!FD_ISSET((*current).GetSocket(), &activity_set_)) continue;
+    if (!FD_ISSET((*current)->GetSocket(), &activity_set_)) continue;
 
-    int err = recv((*current).GetSocket(), buffer, 1024, 0);
+    int err = (*current)->Receive();
 
     if (err == -1) throw errno;
-    
-    if (err == 0) {
-      FD_CLR((*current).GetSocket(), &socket_set_);
-      shutdown((*current).GetSocket(), SHUT_RDWR);
-      connections_.erase(current);
-    }
 
-    std::cout << "Message: " << buffer << std::endl;
+    if (err == 0) {
+      std::cout << "Shutting down " << (*current)->GetSocket() << std::endl;
+      FD_CLR((*current)->GetSocket(), &socket_set_);
+      shutdown((*current)->GetSocket(), SHUT_RDWR);
+      connections_.erase(current);
+      delete *current;
+    }
   }
 }
 
-void guemud::ConnectionManager::NewConnection(Connection conn) {
-  int socket = conn.GetSocket();
+void guemud::ConnectionManager::NewConnection(int socket) {
+  Connection* conn = new Connection(socket);
 
   std::cout << "New connection " << socket << std::endl;
 

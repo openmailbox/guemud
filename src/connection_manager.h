@@ -17,11 +17,11 @@ namespace guemud {
     public:
       ConnectionManager();
       void Manage();
-      void NewConnection(Connection conn);
+      void NewConnection(int socket);
     private:
-      fd_set                                    socket_set_;
-      fd_set                                    activity_set_;
-      std::set<Connection, Connection::Compare> connections_;
+      fd_set                                     socket_set_;
+      fd_set                                     activity_set_;
+      std::set<Connection*, Connection::Compare> connections_;
   };
 }
 
