@@ -9,6 +9,7 @@
 #include <iostream>
 #include <set>
 
+#include "connection.h"
 #include "connection_manager.h"
 
 namespace guemud {
@@ -16,11 +17,11 @@ namespace guemud {
     public:
       ConnectionManager();
       void Manage();
-      void NewConnection(int socket);
+      void NewConnection(Connection conn);
     private:
-      fd_set        socket_set_;
-      fd_set        activity_set_;
-      std::set<int> sockets_;
+      fd_set                                    socket_set_;
+      fd_set                                    activity_set_;
+      std::set<Connection, Connection::Compare> connections_;
   };
 }
 
