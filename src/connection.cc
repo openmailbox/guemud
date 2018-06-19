@@ -11,7 +11,7 @@ bool guemud::Connection::Compare::operator()(const Connection* lhs, const Connec
 int guemud::Connection::Receive() {
   int bytes = recv(socket_, buffer_in_, kBufferSize, 0);
 
-  std::cout << "Message: " << bytes << std::endl;
+  telnet_.Translate(*this, buffer_in_, bytes);
 
   return bytes;
 }

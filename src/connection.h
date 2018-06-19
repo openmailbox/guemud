@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
-#include <iostream>
+#include "telnet.h"
 
 namespace guemud {
   class Connection {
@@ -19,8 +19,9 @@ namespace guemud {
       int GetSocket() const;
       int Receive();
     private:
-      char buffer_in_[kBufferSize];
-      int  socket_;
+      char   buffer_in_[kBufferSize];
+      int    socket_;
+      Telnet telnet_;
   };
 }
 
