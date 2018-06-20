@@ -20,12 +20,12 @@ int guemud::Connection::Receive() {
   return bytes;
 }
 
-void guemud::Connection::SendBuffer() {
-  if (buffer_out_.size() == 0) return;
+int guemud::Connection::SendBuffer() {
+  if (buffer_out_.size() == 0) return 0;
 
   int bytes = send(socket_, buffer_out_.data(), (int)buffer_out_.size(), 0);
 
-  if (bytes == -1) throw errno;
-
   buffer_out_.erase(0, bytes);
+
+  return bytes;
 }

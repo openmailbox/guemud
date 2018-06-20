@@ -55,4 +55,14 @@ void guemud::ConnectionManager::NewConnection(int socket) {
 }
 
 void guemud::ConnectionManager::Send() {
+  std::set<Connection*>::iterator itr = connections_.begin();
+  std::set<Connection*>::iterator current;
+
+  while (itr != connections_.end()) {
+    current = itr++;
+
+    int bytes = (*current)->SendBuffer();
+
+    if (bytes == -1) throw errno;
+  }
 }
