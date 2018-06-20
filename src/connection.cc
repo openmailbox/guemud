@@ -11,6 +11,8 @@ void guemud::Connection::BufferData(const char* buffer, int buffer_size) {
   buffer_out_.append(buffer, buffer_size);
 }
 
+guemud::Telnet* guemud::Connection::GetProtocol() { return &telnet_; }
+
 int guemud::Connection::GetSocket() const { return socket_; }
 
 bool guemud::Connection::Compare::operator()(const Connection* lhs, const Connection* rhs) {

@@ -20,11 +20,12 @@ namespace guemud {
 
       Connection(int socket);
 
-      void AddHandler(ConnectionHandler* handler);
-      void BufferData(const char* buffer, int buffer_size);
-      int  GetSocket() const;
-      int  Receive();
-      int  SendBuffer();
+      void    AddHandler(ConnectionHandler* handler);
+      void    BufferData(const char* buffer, int buffer_size);
+      Telnet* GetProtocol();
+      int     GetSocket() const;
+      int     Receive();
+      int     SendBuffer();
     private:
       char                           buffer_in_[kBufferSize];
       std::string                    buffer_out_;

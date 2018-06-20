@@ -3,7 +3,11 @@
 
 guemud::Telnet::Telnet::Telnet() { buffer_in_size_ = 0; }
 
-void guemud::Telnet::Translate(Connection &conn, char* buffer, int buffer_size) {
+void guemud::Telnet::SendString(Connection& conn, const std::string string) {
+  conn.BufferData(string.data(), (int)string.size());
+}
+
+void guemud::Telnet::Translate(Connection& conn, char* buffer, int buffer_size) {
   for (int i = 0; i < buffer_size; i++) {
     char next_character = buffer[i];
 

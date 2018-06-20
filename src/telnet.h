@@ -13,6 +13,7 @@ namespace guemud {
       static const int kBufferSize = 1024;
 
       Telnet();
+      void SendString(Connection& conn, std::string string);
       void Translate(Connection& conn, char* buffer, int buffer_size);
     private:
       char buffer_in_[kBufferSize];
