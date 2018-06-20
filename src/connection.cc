@@ -2,14 +2,19 @@
 
 guemud::Connection::Connection(int socket) : socket_(socket) {}
 
-int guemud::Connection::GetSocket() const { return socket_; }
-
-bool guemud::Connection::Compare::operator()(const Connection* lhs, const Connection* rhs) {
-  return lhs->GetSocket() < rhs->GetSocket();
+void guemud::Connection::AddHandler(ConnectionHandler* handler) {
+  handlers_.push(handler);
+  handler->Enter();
 }
 
 void guemud::Connection::BufferData(const char* buffer, int buffer_size) {
   buffer_out_.append(buffer, buffer_size);
+}
+
+int guemud::Connection::GetSocket() const { return socket_; }
+
+bool guemud::Connection::Compare::operator()(const Connection* lhs, const Connection* rhs) {
+  return lhs->GetSocket() < rhs->GetSocket();
 }
 
 int guemud::Connection::Receive() {

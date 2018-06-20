@@ -14,7 +14,6 @@ namespace guemud {
 
       Telnet();
       void Translate(Connection& conn, char* buffer, int buffer_size);
-
     private:
       char buffer_in_[kBufferSize];
       int  buffer_in_size_;

@@ -11,6 +11,7 @@
 
 #include "connection.h"
 #include "connection_manager.h"
+#include "logon.h"
 
 namespace guemud {
   class ConnectionManager {

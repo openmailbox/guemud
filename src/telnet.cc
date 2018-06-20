@@ -1,5 +1,5 @@
-#include "connection.h"
 #include "telnet.h"
+#include "connection.h"
 
 guemud::Telnet::Telnet::Telnet() { buffer_in_size_ = 0; }
 

@@ -52,6 +52,7 @@ void guemud::ConnectionManager::NewConnection(int socket) {
   FD_SET(socket, &socket_set_);
 
   connections_.insert(conn);
+  conn->AddHandler(new Logon(*conn));
 }
 
 void guemud::ConnectionManager::Send() {

@@ -3,15 +3,13 @@
 
 #include <string>
 
-#include "connection.h"
-
 namespace guemud {
+  class Connection; // forward declaration
+
   class ConnectionHandler {
     public:
       ConnectionHandler(Connection& conn);
-      virtual void Handle(std::string data) = 0;
       virtual void Enter() = 0;
-      virtual void Leave() = 0;
     protected:
       guemud::Connection* connection_;
   };
