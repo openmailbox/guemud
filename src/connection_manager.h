@@ -22,6 +22,9 @@ namespace guemud {
       fd_set                                     socket_set_;
       fd_set                                     activity_set_;
       std::set<Connection*, Connection::Compare> connections_;
+
+      void Listen();
+      void Send();
   };
 }
 

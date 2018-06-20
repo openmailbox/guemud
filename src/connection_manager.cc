@@ -5,7 +5,7 @@ guemud::ConnectionManager::ConnectionManager() {
   FD_ZERO(&activity_set_);
 }
 
-void guemud::ConnectionManager::Manage() {
+void guemud::ConnectionManager::Listen() {
   if (connections_.size() == 0) return;
 
   struct timeval zerotime;
@@ -39,6 +39,11 @@ void guemud::ConnectionManager::Manage() {
   }
 }
 
+void guemud::ConnectionManager::Manage() {
+  Listen();
+  Send();
+}
+
 void guemud::ConnectionManager::NewConnection(int socket) {
   Connection* conn = new Connection(socket);
 
@@ -47,4 +52,7 @@ void guemud::ConnectionManager::NewConnection(int socket) {
   FD_SET(socket, &socket_set_);
 
   connections_.insert(conn);
+}
+
+void guemud::ConnectionManager::Send() {
 }

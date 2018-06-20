@@ -1,6 +1,7 @@
 #ifndef GUEMUD_CONNECTION_H_
 #define GUEMUD_CONNECTION_H_
 
+#include <errno.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 
@@ -16,12 +17,16 @@ namespace guemud {
       };
 
       Connection(int socket);
-      int GetSocket() const;
-      int Receive();
+
+      void BufferData(const char* buffer, int buffer_size);
+      int  GetSocket() const;
+      int  Receive();
+      void SendBuffer();
     private:
-      char   buffer_in_[kBufferSize];
-      int    socket_;
-      Telnet telnet_;
+      char        buffer_in_[kBufferSize];
+      std::string buffer_out_;
+      int         socket_;
+      Telnet      telnet_;
   };
 }
 
