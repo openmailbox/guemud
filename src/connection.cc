@@ -11,6 +11,12 @@ void guemud::Connection::BufferData(const char* buffer, int buffer_size) {
   buffer_out_.append(buffer, buffer_size);
 }
 
+guemud::ConnectionHandler* guemud::Connection::GetHandler() { 
+  if (handlers_.size() == 0) return 0;
+  
+  return handlers_.top();
+}
+
 guemud::Telnet* guemud::Connection::GetProtocol() { return &telnet_; }
 
 int guemud::Connection::GetSocket() const { return socket_; }
@@ -25,6 +31,16 @@ int guemud::Connection::Receive() {
   telnet_.Translate(*this, buffer_in_, bytes);
 
   return bytes;
+}
+
+void guemud::Connection::RemoveHandler() {
+  if (handlers_.size() == 0) return;
+
+  ConnectionHandler* handler = handlers_.top();
+  delete handler;
+  handlers_.pop();
+
+  if (handlers_.size() > 0) handlers_.top()->Enter();
 }
 
 int guemud::Connection::SendBuffer() {

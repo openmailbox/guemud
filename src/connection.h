@@ -18,14 +18,18 @@ namespace guemud {
         bool operator()(const Connection* lhs, const Connection* rhs);
       };
 
+      std::string name; // temporary
+
       Connection(int socket);
 
-      void    AddHandler(ConnectionHandler* handler);
-      void    BufferData(const char* buffer, int buffer_size);
-      Telnet* GetProtocol();
-      int     GetSocket() const;
-      int     Receive();
-      int     SendBuffer();
+      void               AddHandler(ConnectionHandler* handler);
+      void               BufferData(const char* buffer, int buffer_size);
+      ConnectionHandler* GetHandler();
+      Telnet*            GetProtocol();
+      int                GetSocket() const;
+      int                Receive();
+      void               RemoveHandler();
+      int                SendBuffer();
     private:
       char                           buffer_in_[kBufferSize];
       std::string                    buffer_out_;

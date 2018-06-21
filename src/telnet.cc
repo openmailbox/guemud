@@ -18,7 +18,7 @@ void guemud::Telnet::Translate(Connection& conn, char* buffer, int buffer_size) 
       buffer_in_size_--;
     } else if (next_character == '\n' || next_character == '\r') {
       if (buffer_in_size_ > 0) {
-        std::cout << "Message from " << conn.GetSocket() << ": " << buffer_in_ << std::endl;
+        conn.GetHandler()->Handle(buffer_in_);
         memset(buffer_in_, 0, buffer_in_size_);
         buffer_in_size_ = 0;
       }

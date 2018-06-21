@@ -3,7 +3,7 @@ EXE = guemud
 
 SRCDIR = ./src
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -std=c++11 -Wall -Wextra -Werror
 
 main: libs
 	$(CXX) $(CFLAGS) $(SRCDIR)/*.o -o $(EXE)
