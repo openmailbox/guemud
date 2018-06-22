@@ -2,12 +2,12 @@
 #define GUEMUD_LOGON_H_
 
 #include "chat.h"
-#include "connection_handler.h"
+#include "networking/connection_handler.h"
 
 namespace guemud {
-  class Logon : public ConnectionHandler {
+  class Logon : public networking::ConnectionHandler {
     public:
-      Logon(Connection& conn);
+      Logon(networking::Connection& conn);
       void Enter();
       void Handle(std::string data);
   };

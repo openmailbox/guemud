@@ -1,17 +1,19 @@
 #include "chat.h"
-#include "connection.h"
+#include "networking/connection.h"
 
-guemud::Chat::Chat(Connection& conn) : ConnectionHandler(conn) {}
+namespace guemud {
+  Chat::Chat(networking::Connection& conn) : networking::ConnectionHandler(conn) {}
 
-void guemud::Chat::Enter() {
-  ShowPrompt();
-}
+  void Chat::Enter() {
+    ShowPrompt();
+  }
 
-void guemud::Chat::Handle(std::string data) {
-  connection_->GetProtocol()->SendString(*connection_, "You say, \"" + data + "\"\n");
-  ShowPrompt();
-}
+  void Chat::Handle(std::string data) {
+    connection_->GetProtocol()->SendString(*connection_, "You say, \"" + data + "\"\n");
+    ShowPrompt();
+  }
 
-void guemud::Chat::ShowPrompt() {
-  connection_->GetProtocol()->SendString(*connection_, "> ");
+  void Chat::ShowPrompt() {
+    connection_->GetProtocol()->SendString(*connection_, "> ");
+  }
 }

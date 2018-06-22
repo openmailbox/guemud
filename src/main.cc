@@ -5,8 +5,8 @@
 #include <iostream>
 
 #include "game.h"
-#include "connection_manager.h"
-#include "listening_manager.h"
+#include "networking/connection_manager.h"
+#include "networking/listening_manager.h"
 
 void HandleSignal(int signum) {
   std::cout << "Interrupt signal (" << signum << ") received." << std::endl;
@@ -21,8 +21,8 @@ int main() {
     signal(SIGINT, HandleSignal);
 
     guemud::Game game;
-    guemud::ConnectionManager connection_manager;
-    guemud::ListeningManager listening_manager(4040, connection_manager);
+    guemud::networking::ConnectionManager connection_manager;
+    guemud::networking::ListeningManager listening_manager(4040, connection_manager);
 
     struct timespec loop_time, loop_remain;
     loop_time.tv_nsec = 1000;
