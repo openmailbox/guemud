@@ -4,7 +4,7 @@ EXE = guemud
 SRCDIR = ./src
 NETWORKINGDIR = $(SRCDIR)/networking
 
-CFLAGS = -std=c++11 -Wall -Wextra -Werror
+CFLAGS = -std=c++11 -g -Wall -Wextra -Werror
 
 main: networking libs
 	$(CXX) $(CFLAGS) $(SRCDIR)/*.o $(NETWORKINGDIR)/*.o -o $(EXE)
