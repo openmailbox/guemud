@@ -8,19 +8,24 @@
 #include "networking/connection_manager.h"
 #include "networking/listening_manager.h"
 
+void Cleanup() {
+  std::cout << "Shutting down." << std::endl;
+
+  #ifdef WIN32
+    WSACleanup();
+  #endif
+}
+
 void HandleSignal(int signum) {
-  std::cout << "Interrupt signal (" << signum << ") received." << std::endl;
-
-  // cleanup
-
-  exit(signum);
+  std::cout << "Signal (" << signum << ") received." << std::endl;
+  throw signum;
 }
 
 int main() {
+  std::cout << "Starting GueMUD..." << std::endl;
+
   try {
     signal(SIGINT, HandleSignal);
-
-    std::cout << "Starting GueMUD..." << std::endl;
 
     #ifdef WIN32
       WSADATA winsockdata;
@@ -40,23 +45,23 @@ int main() {
       connection_manager.Manage();
       game.ExecuteLoop();
    	  #ifdef WIN32
-	    Sleep(1);
+        Sleep(1);
   	  #else
-	    nanosleep(&loop_time, &loop_remain); // yield thread to OS
+        nanosleep(&loop_time, &loop_remain); // yield thread to OS
   	  #endif
     }
 
   } catch (int e) {
     std::cout << "An exception occurred: " << e << std::endl;
+    Cleanup();
+    return 1;
   } catch (...) {
     std::cout << "An exception occurred." << std::endl;
+    Cleanup();
+    return 1;
   }
 
-  #ifdef WIN32
-    WSACleanup();
-  #endif
-
-  std::cout << "Exited." << std::endl;
+  Cleanup();
 
   return 0;
 }

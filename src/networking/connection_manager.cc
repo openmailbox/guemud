@@ -32,11 +32,10 @@ namespace guemud {
         if (err == -1) throw errno;
 
         if (err == 0) {
-          int shutdown_method;
           #ifdef WIN32
-            shutdown_method = SD_BOTH;
+            int shutdown_method = SD_BOTH;
           #else
-            shutdown_method = SHUT_RDWR;
+            int shutdown_method = SHUT_RDWR;
           #endif
 
           std::cout << "Shutting down " << (*current)->GetSocket() << std::endl;
