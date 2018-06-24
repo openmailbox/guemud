@@ -7,7 +7,7 @@
 namespace guemud {
   class Logon : public networking::ConnectionHandler {
     public:
-      Logon(networking::Connection& conn);
+      Logon(networking::Connection* conn);
       void Enter();
       void Handle(std::string data);
   };

@@ -3,6 +3,6 @@
 
 namespace guemud {
   namespace networking {
-    ConnectionHandler::ConnectionHandler(Connection& conn) : connection_(&conn) {};
+    ConnectionHandler::ConnectionHandler(Connection* conn) : connection_(conn) {};
   }
 }

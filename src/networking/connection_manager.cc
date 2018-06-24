@@ -32,9 +32,16 @@ namespace guemud {
         if (err == -1) throw errno;
 
         if (err == 0) {
+          int shutdown_method;
+          #ifdef WIN32
+            shutdown_method = SD_BOTH;
+          #else
+            shutdown_method = SHUT_RDWR
+          #endif
+
           std::cout << "Shutting down " << (*current)->GetSocket() << std::endl;
           FD_CLR((*current)->GetSocket(), &socket_set_);
-          shutdown((*current)->GetSocket(), SHUT_RDWR);
+          shutdown((*current)->GetSocket(), shutdown_method);
           connections_.erase(current);
           delete *current;
         }
@@ -54,7 +61,7 @@ namespace guemud {
       FD_SET(socket, &socket_set_);
 
       connections_.insert(conn);
-      conn->AddHandler(new guemud::Logon(*conn));
+      conn->AddHandler(new guemud::Logon(conn));
     }
 
     void ConnectionManager::Send() {

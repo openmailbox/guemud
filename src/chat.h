@@ -6,7 +6,7 @@
 namespace guemud {
   class Chat : public networking::ConnectionHandler {
     public:
-      Chat(networking::Connection& conn);
+      Chat(networking::Connection* conn);
       void Enter();
       void Handle(std::string data);
     private:

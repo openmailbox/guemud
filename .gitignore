@@ -1,3 +1,6 @@
 *.o
 guemud
 .*.swp
+Release
+Debug
+.vs

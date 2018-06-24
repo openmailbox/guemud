@@ -2,7 +2,9 @@
 
 namespace guemud {
   namespace networking {
-    Connection::Connection(int socket) : socket_(socket) {}
+    Connection::Connection(int socket) : socket_(socket) {
+      memset(buffer_in_, 0, sizeof buffer_in_);
+    }
 
     void Connection::AddHandler(ConnectionHandler* handler) {
       handlers_.push(handler);
@@ -39,8 +41,8 @@ namespace guemud {
       if (handlers_.size() == 0) return;
 
       ConnectionHandler* handler = handlers_.top();
-      delete handler;
       handlers_.pop();
+      delete handler;
 
       if (handlers_.size() > 0) handlers_.top()->Enter();
     }

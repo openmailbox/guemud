@@ -1,7 +1,12 @@
 #ifndef GUEMUD_NETWORKING_CONNECTION_H_
 #define GUEMUD_NETWORKING_CONNECTION_H_
 
+
+#ifdef WIN32
+#include <winsock2.h>
+#else
 #include <sys/socket.h>
+#endif
 #include <sys/types.h>
 
 #include <stack>

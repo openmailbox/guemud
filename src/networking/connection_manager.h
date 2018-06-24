@@ -1,9 +1,15 @@
 #ifndef GUEMUD_NETWORKING_CONNECTION_MANAGER_H_
 #define GUEMUD_NETWORKING_CONNECTION_MANAGER_H_
 
+
 #include <errno.h>
+#ifdef WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#else
 #include <sys/select.h>
 #include <sys/socket.h>
+#endif
 
 #include <cstddef>
 #include <iostream>

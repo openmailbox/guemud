@@ -14,10 +14,21 @@ namespace guemud {
       socklen_t new_socket_size = sizeof(new_socket_addr);
 
       // TODO: Use select()
-      int new_socket = accept4(socket_.GetSocket(), (struct sockaddr*)&new_socket_addr, &new_socket_size, SOCK_NONBLOCK);
+      #ifdef WIN32
+        unsigned long mode = 1;
+        int new_socket = accept(socket_.GetSocket(), (struct sockaddr*)&new_socket_addr, &new_socket_size);
+        if (new_socket != -1) ioctlsocket(new_socket, FIONBIO, &mode);
+      #else
+        int new_socket = accept4(socket_.GetSocket(), (struct sockaddr*)&new_socket_addr, &new_socket_size, SOCK_NONBLOCK);
+      #endif
 
       if (new_socket == -1) {
-        if (errno != EWOULDBLOCK && errno != EAGAIN) throw errno;
+        #ifdef WIN32
+          int error = WSAGetLastError();
+          if (error != WSAEWOULDBLOCK) throw error;
+        #else
+          if (errno != EWOULDBLOCK && errno != EAGAIN) throw errno;
+        #endif
 
         return;
       }

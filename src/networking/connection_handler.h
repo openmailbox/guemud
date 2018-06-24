@@ -9,7 +9,7 @@ namespace guemud {
 
     class ConnectionHandler {
       public:
-        ConnectionHandler(Connection& conn);
+        ConnectionHandler(Connection* conn);
         virtual ~ConnectionHandler() = default;
         virtual void Enter() = 0;
         virtual void Handle(std::string data) = 0;

@@ -2,7 +2,7 @@
 #include "networking/connection.h"
 
 namespace guemud {
-  Chat::Chat(networking::Connection& conn) : networking::ConnectionHandler(conn) {}
+  Chat::Chat(networking::Connection* conn) : networking::ConnectionHandler(conn) {}
 
   void Chat::Enter() {
     ShowPrompt();

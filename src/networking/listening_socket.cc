@@ -3,10 +3,17 @@
 namespace guemud {
   namespace networking {
     void ListeningSocket::Listen( int port ) {
-      socket_ = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, IPPROTO_TCP);
+      #ifdef WIN32
+        unsigned long mode = 1;
+        socket_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-      // TODO: Actual error handling
-      if (socket_ == -1) throw errno;
+        if (socket_ == INVALID_SOCKET) throw WSAGetLastError();
+
+        ioctlsocket(socket_, FIONBIO, &mode);
+      #else
+        socket_ = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, IPPROTO_TCP);
+        if (socket_ == -1) throw errno;
+      #endif
 
       int reuse = 1;
       int err = setsockopt(socket_, SOL_SOCKET, SO_REUSEADDR, (char*)(&reuse), sizeof(reuse));

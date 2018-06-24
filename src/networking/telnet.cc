@@ -3,7 +3,10 @@
 
 namespace guemud {
   namespace networking {
-    Telnet::Telnet() { buffer_in_size_ = 0; }
+    Telnet::Telnet() {
+      buffer_in_size_ = 0;
+      memset(buffer_in_, 0, kBufferSize);
+    }
 
     void Telnet::SendString(Connection& conn, const std::string string) {
       conn.BufferData(string.data(), (int)string.size());
