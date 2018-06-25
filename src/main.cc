@@ -2,6 +2,7 @@
 #include <time.h>
 
 #include <csignal>
+#include <exception>
 #include <iostream>
 
 #include "game.h"
@@ -18,7 +19,7 @@ void Cleanup() {
 
 void HandleSignal(int signum) {
   std::cout << "Signal (" << signum << ") received." << std::endl;
-  throw signum;
+  throw "Signal " + std::to_string(signum);
 }
 
 int main() {
@@ -51,12 +52,20 @@ int main() {
   	  #endif
     }
 
+  } catch (std::exception& e) {
+    std::cerr << "An exception occurred: " << e.what() << std::endl;
+    Cleanup();
+    return 1;
+  } catch (const char* msg) {
+    std::cerr << "An exception occurred: " << msg << std::endl;
+    Cleanup();
+    return 1;
   } catch (int e) {
-    std::cout << "An exception occurred: " << e << std::endl;
+    std::cerr << "An exception occurred: " << e << std::endl;
     Cleanup();
     return 1;
   } catch (...) {
-    std::cout << "An exception occurred." << std::endl;
+    std::cerr << "An exception occurred." << std::endl;
     Cleanup();
     return 1;
   }
