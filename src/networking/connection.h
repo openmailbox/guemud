@@ -24,8 +24,6 @@ namespace guemud {
           bool operator()(const Connection* lhs, const Connection* rhs);
         };
 
-        std::string name; // temporary
-
         Connection(int socket);
 
         void               AddHandler(ConnectionHandler* handler);

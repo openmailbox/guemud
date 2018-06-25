@@ -1,14 +1,27 @@
 #ifndef GUEMUD_GAME_H_
 #define GUEMUD_GAME_H_
 
+#include <vector>
+
+#include "networking/connection.h"
+#include "player.h"
+
 namespace guemud {
   class Game {
     public:
+      static Game& GetInstance();
+
       Game();
-      void ExecuteLoop();
-      bool IsRunning();
+
+      void    Announce(std::string text);
+      void    ExecuteLoop();
+      Player  NewPlayer(networking::Connection* conn, std::string name);
+      bool    IsRunning();
     private:
-      bool is_running_;
+      static Game instance_;
+
+      bool                is_running_;
+      std::vector<Player> players_;
   };
 }
 

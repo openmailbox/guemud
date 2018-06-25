@@ -2,14 +2,15 @@
 #include "networking/connection.h"
 
 namespace guemud {
-  Chat::Chat(networking::Connection* conn) : networking::ConnectionHandler(conn) {}
+  Chat::Chat(networking::Connection* conn, Player player) : 
+    networking::ConnectionHandler(conn), player_(player) {}
 
   void Chat::Enter() {
     ShowPrompt();
   }
 
   void Chat::Handle(std::string data) {
-    connection_->GetProtocol()->SendString(*connection_, "You say, \"" + data + "\"\n");
+    Game::GetInstance().Announce(player_.GetName() + " says, \"" + data + "\"\n");
     ShowPrompt();
   }
 
