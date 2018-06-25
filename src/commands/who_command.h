@@ -10,7 +10,7 @@ namespace guemud {
   namespace commands {
     class WhoCommand : public guemud::Command {
       public:
-        void Execute(Player& enactor);
+        void Execute(Player& enactor) override;
     };
   }
 }
