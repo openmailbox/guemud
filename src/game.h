@@ -13,10 +13,11 @@ namespace guemud {
 
       Game();
 
-      void    Announce(std::string text);
-      void    ExecuteLoop();
-      Player  NewPlayer(networking::Connection* conn, std::string name);
-      bool    IsRunning();
+      void                Announce(std::string text);
+      std::vector<Player> GetPlayers() const;
+      void                ExecuteLoop();
+      Player              NewPlayer(networking::Connection* conn, std::string name);
+      bool                IsRunning();
     private:
       static Game instance_;
 

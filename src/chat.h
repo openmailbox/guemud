@@ -1,6 +1,7 @@
 #ifndef GUEMUD_CHAT_H_
 #define GUEMUD_CHAT_H_
 
+#include "commands/who_command.h"
 #include "game.h"
 #include "networking/connection_handler.h"
 

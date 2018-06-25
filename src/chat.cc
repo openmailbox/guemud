@@ -10,11 +10,16 @@ namespace guemud {
   }
 
   void Chat::Handle(std::string data) {
-    Game::GetInstance().Announce(player_.GetName() + " says, \"" + data + "\"\n");
-    ShowPrompt();
+    if (data.compare("/who") == 0) {
+      commands::WhoCommand cmd;
+      cmd.Execute(player_);
+      ShowPrompt();
+    } else {
+      Game::GetInstance().Announce(player_.GetName() + " says, \"" + data + "\"\n");
+    }
   }
 
   void Chat::ShowPrompt() {
-    connection_->GetProtocol()->SendString(*connection_, "> ");
+    connection_->GetProtocol()->SendString(*connection_, "\n> ");
   }
 }

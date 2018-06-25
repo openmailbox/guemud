@@ -10,7 +10,7 @@ namespace guemud {
     instance_ = *this;
   }
 
-  void guemud::Game::Announce(std::string text) {
+  void Game::Announce(std::string text) {
     std::vector<Player>::iterator itr = players_.begin();
 
     while (itr != players_.end()) {
@@ -19,6 +19,8 @@ namespace guemud {
       itr++;
     }
   }
+
+  std::vector<Player> Game::GetPlayers() const { return players_; }
 
   void Game::ExecuteLoop() {
     // perform actions
