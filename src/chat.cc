@@ -13,10 +13,10 @@ namespace guemud {
     if (data.compare("/who") == 0) {
       commands::WhoCommand cmd;
       cmd.Execute(player_);
-      ShowPrompt();
     } else {
       Game::GetInstance().Announce(player_.GetName() + " says, \"" + data + "\"\n");
     }
+    ShowPrompt();
   }
 
   void Chat::ShowPrompt() {
