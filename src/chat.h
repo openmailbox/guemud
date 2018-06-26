@@ -8,13 +8,13 @@
 namespace guemud {
   class Chat : public networking::ConnectionHandler {
    public:
-     Chat(networking::Connection* conn, Player player);
+     Chat(networking::Connection* conn, Player* player);
 
      void Enter();
      void Handle(std::string data);
 
    private:
-     Player player_;
+     Player* player_;
 
      void ShowPrompt();
   };

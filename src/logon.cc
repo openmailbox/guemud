@@ -10,9 +10,9 @@ namespace guemud {
 
   void Logon::Handle(std::string data) {
     networking::Connection* conn = connection_;
-    Player player = Game::GetInstance().NewPlayer(conn, data);
+    Player* player = Game::GetInstance().NewPlayer(conn, data);
 
-    conn->GetProtocol()->SendString(*connection_, "Welcome, " + player.GetName() + ".\n");
+    conn->GetProtocol()->SendString(*connection_, "Welcome, " + player->GetName() + ".\n");
     conn->RemoveHandler();
     conn->AddHandler(new Chat(conn, player));
   }

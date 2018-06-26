@@ -14,6 +14,8 @@ namespace guemud {
     }
 
     void ListeningSocket::Listen( int port ) {
+      int err;
+
       #ifdef WIN32
         socket_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
         if (socket_ == INVALID_SOCKET) CheckErrors(-1);
@@ -24,12 +26,12 @@ namespace guemud {
 
       #ifdef WIN32
         unsigned long mode = 1;
-        int err = ioctlsocket(socket_, FIONBIO, &mode);
+        err = ioctlsocket(socket_, FIONBIO, &mode);
         CheckErrors(err);
       #endif
 
       int reuse = 1;
-      int err = setsockopt(socket_, SOL_SOCKET, SO_REUSEADDR, (char*)(&reuse), sizeof(reuse));
+      err = setsockopt(socket_, SOL_SOCKET, SO_REUSEADDR, (char*)(&reuse), sizeof(reuse));
 
       CheckErrors(err);
 

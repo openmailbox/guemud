@@ -11,23 +11,23 @@ namespace guemud {
   }
 
   void Game::Announce(std::string text) {
-    std::vector<Player>::iterator itr = players_.begin();
+    std::vector<Player*>::iterator itr = players_.begin();
 
     while (itr != players_.end()) {
-      networking::Connection* conn = (*itr).GetConnection();
+      networking::Connection* conn = (*itr)->GetConnection();
       conn->GetProtocol()->SendString(*conn, text);
       itr++;
     }
   }
 
-  std::vector<Player> Game::GetPlayers() const { return players_; }
+  std::vector<Player*>* Game::GetPlayers() { return &players_; }
 
   void Game::ExecuteLoop() {
     // perform actions
   }
 
-  Player Game::NewPlayer(networking::Connection* conn, std::string name) {
-    Player new_player(conn, name);
+  Player* Game::NewPlayer(networking::Connection* conn, std::string name) {
+    Player* new_player = new Player(conn, name); // TODO: clean this up
 
     Announce(name + " has connected.\n");
 
