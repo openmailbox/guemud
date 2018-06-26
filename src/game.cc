@@ -5,8 +5,8 @@ namespace guemud {
 
   Game& Game::GetInstance() { return instance_;  }
 
-  Game::Game() { 
-    is_running_ = true; 
+  Game::Game() {
+    is_running_ = true;
     instance_ = *this;
   }
 

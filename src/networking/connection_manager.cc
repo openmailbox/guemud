@@ -7,7 +7,7 @@ namespace guemud {
       FD_ZERO(&activity_set_);
     }
 
-    void ConnectionManager::CheckErrors(int result) { 
+    void ConnectionManager::CheckErrors(int result) {
       if (result != -1) return;
 
       #ifdef WIN32
