@@ -1,7 +1,6 @@
 #ifndef GUEMUD_NETWORKING_CONNECTION_MANAGER_H_
 #define GUEMUD_NETWORKING_CONNECTION_MANAGER_H_
 
-
 #include <errno.h>
 #ifdef WIN32
 #include <winsock2.h>
@@ -15,26 +14,29 @@
 #include <iostream>
 #include <set>
 
+#include "../error.h"
+#include "../logon.h"
 #include "connection.h"
 #include "connection_manager.h"
-#include "../logon.h"
 
 namespace guemud {
   namespace networking {
     class ConnectionManager {
-      public:
-        ConnectionManager();
-        void Manage();
-        void NewConnection(int socket);
-      private:
-        fd_set                                     socket_set_;
-        fd_set                                     activity_set_;
-        std::set<Connection*, Connection::Compare> connections_;
+     public:
+      ConnectionManager();
+      void Manage();
+      void NewConnection(int socket);
 
-        void Listen();
-        void Send();
+     private:
+      fd_set socket_set_;
+      fd_set activity_set_;
+      std::set<Connection*, Connection::Compare> connections_;
+
+      void CheckErrors(int result);
+      void Listen();
+      void Send();
     };
-  }
-}
+  }  // namespace networking
+}    // namespace guemud
 
 #endif

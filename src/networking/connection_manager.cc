@@ -7,6 +7,17 @@ namespace guemud {
       FD_ZERO(&activity_set_);
     }
 
+    void ConnectionManager::CheckErrors(int result) { 
+      if (result != -1) return;
+
+      #ifdef WIN32
+        int error = WSAGetLastError();
+        if (error != WSAEWOULDBLOCK) throw guemud::Error(error);
+      #else
+        if (errno != EWOULDBLOCK && errno != EAGAIN) throw guemud::Error(errno);
+      #endif
+    }
+
     void ConnectionManager::Listen() {
       if (connections_.size() == 0) return;
 
@@ -17,7 +28,9 @@ namespace guemud {
 
       int err = select((*(connections_.rbegin()))->GetSocket() + 1, &activity_set_, NULL, NULL, &zerotime);
 
-      if (err == -1) throw errno; if (err < 1) return;
+      CheckErrors(err);
+
+      if (err == 0) return; // no activity on any sockets
 
       std::set<Connection*>::iterator itr = connections_.begin();
       std::set<Connection*>::iterator current;
@@ -29,7 +42,7 @@ namespace guemud {
 
         int err = (*current)->Receive();
 
-        if (err == -1) throw errno;
+        CheckErrors(err);
 
         if (err == 0) {
           #ifdef WIN32
@@ -70,9 +83,9 @@ namespace guemud {
       while (itr != connections_.end()) {
         current = itr++;
 
-        int bytes = (*current)->SendBuffer();
+        int err = (*current)->SendBuffer();
 
-        if (bytes == -1) throw errno;
+        CheckErrors(err);
       }
     }
   }

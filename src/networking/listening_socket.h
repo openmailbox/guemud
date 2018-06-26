@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <string.h>
 
+#include "../error.h"
 #include "socket.h"
 
 namespace guemud {
@@ -11,6 +12,9 @@ namespace guemud {
     class ListeningSocket : public Socket {
       public:
         void Listen(int port);
+
+      private:
+        void CheckErrors(int result);
     };
   }
 }

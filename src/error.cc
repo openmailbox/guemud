@@ -17,7 +17,7 @@ namespace guemud {
     try {
       message_ = kErrorCodes.at(code);
     } catch (std::out_of_range) {
-      message_ = "Unspecified error";
+      message_ = "Unspecified error code " + code;
     }
   }
 
