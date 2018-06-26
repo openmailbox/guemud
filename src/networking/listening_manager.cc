@@ -25,9 +25,9 @@ namespace guemud {
       if (new_socket == -1) {
         #ifdef WIN32
           int error = WSAGetLastError();
-          if (error != WSAEWOULDBLOCK) throw error;
+          if (error != WSAEWOULDBLOCK) throw guemud::Error(error);
         #else
-          if (errno != EWOULDBLOCK && errno != EAGAIN) throw errno;
+          if (errno != EWOULDBLOCK && errno != EAGAIN) throw guemud::Error(errno);
         #endif
 
         return;
