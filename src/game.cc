@@ -8,6 +8,8 @@ namespace guemud {
   Game::Game() {
     is_running_ = true;
     instance_ = *this;
+
+    RoomDB.Create(); // temporary - create a starting room
   }
 
   void Game::Announce(std::string text) {

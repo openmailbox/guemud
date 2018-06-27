@@ -15,6 +15,7 @@ namespace guemud {
       EntityId     GetId();
       std::string  GetName();
       void         SetDescription(std::string desc);
+      void         SetId(EntityId id);
       void         SetName(std::string name);
     protected:
       std::string description_;

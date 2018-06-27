@@ -11,5 +11,7 @@ namespace guemud {
 
   void Entity::SetDescription(std::string desc) { description_ = desc; }
 
+  void Entity::SetId(EntityId id) { id_ = id; }
+
   void Entity::SetName(std::string name) { name_ = name; }
 }

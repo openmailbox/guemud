@@ -5,6 +5,7 @@
 
 #include "networking/connection.h"
 #include "player.h"
+#include "room_database.h"
 
 namespace guemud {
   class Game {

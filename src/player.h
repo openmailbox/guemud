@@ -10,10 +10,8 @@ namespace guemud {
       Player(networking::Connection* connection, std::string name);
 
       networking::Connection* GetConnection();
-      std::string             GetName();
     private:
       networking::Connection* connection_;
-      std::string             name_;
   };
 }
 
