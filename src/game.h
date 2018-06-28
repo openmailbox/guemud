@@ -1,10 +1,9 @@
 #ifndef GUEMUD_GAME_H_
 #define GUEMUD_GAME_H_
 
+#include "database.h"
 #include "networking/connection.h"
 #include "player.h"
-#include "player_database.h"
-#include "room_database.h"
 
 namespace guemud {
 

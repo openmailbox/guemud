@@ -4,12 +4,11 @@ namespace guemud {
   namespace commands {
     void WhoCommand::Execute(Player& enactor) {
       networking::Connection* conn       = enactor.GetConnection();
-      std::vector<Player*> players       = PlayerDB.GetConnected();
-      std::vector<Player*>::iterator itr = players.begin();
+      std::vector<Entity*>::iterator itr = PlayerDB.Begin();
 
       conn->GetProtocol()->SendString(*conn, "Connected Players:\n");
 
-      while (itr != players.end()) {
+      while (itr != PlayerDB.End()) {
         conn->GetProtocol()->SendString(*conn, (*itr)->GetName() + "\n");
         itr++;
       }

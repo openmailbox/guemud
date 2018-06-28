@@ -10,17 +10,17 @@ namespace guemud {
 
   void Logon::Handle(std::string data) {
     networking::Connection* conn = connection_;
-    Player& player               = PlayerDB.Create();
-    Room* room                   = RoomDB.First();
+    Player* player               = (Player*)PlayerDB.Create();
+    Room* room                   = (Room*)RoomDB.First();
 
-    player.SetConnection(*conn);
-    player.SetName(data);
-    player.SetLocation(*room);
+    player->SetConnection(*conn);
+    player->SetName(data);
+    player->SetLocation(*room);
 
-    room->AddEntity(player);
+    room->AddEntity(*player);
 
-    conn->GetProtocol()->SendString(*connection_, "Welcome, " + player.GetName() + ".\n");
+    conn->GetProtocol()->SendString(*connection_, "Welcome, " + player->GetName() + ".\n");
     conn->RemoveHandler();
-    conn->AddHandler(new Chat(conn, &player));
+    conn->AddHandler(new Chat(conn, player));
   }
 }

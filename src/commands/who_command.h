@@ -5,7 +5,6 @@
 
 #include "../command.h"
 #include "../game.h"
-#include "../player_database.h"
 
 namespace guemud {
 namespace commands {

@@ -13,11 +13,10 @@ namespace guemud {
   }
 
   void Game::Announce(std::string text) {
-    std::vector<Player*> online_players = PlayerDB.GetConnected();
-    std::vector<Player*>::iterator itr  = online_players.begin();
+    std::vector<Entity*>::iterator itr = PlayerDB.Begin();
 
-    while (itr != online_players.end()) {
-      networking::Connection* conn = (*itr)->GetConnection();
+    while (itr != PlayerDB.End()) {
+      networking::Connection* conn = ((Player*)(*itr))->GetConnection();
       conn->GetProtocol()->SendString(*conn, text);
       itr++;
     }

@@ -7,29 +7,20 @@
 
 namespace guemud {
 
-template <typename EntityClass>
 class Database {
   public:
-    virtual EntityClass& Create() {
-      EntityClass* entity = new EntityClass();
-
-      entity->SetId(next_id_++);
-
-      loaded_.push_back(entity);
-
-      return *entity;
-    };
-
-    EntityClass* First() {
-      if (loaded_.size() == 0) return 0;
-
-      return loaded_.at(0);
-    }
-    EntityClass& Load(EntityId id);
+    std::vector<Entity*>::iterator Begin();
+    Entity*                        Create();
+    std::vector<Entity*>::iterator End();
+    Entity*                        First();
+    Entity*                        Load(Entity::Reference ref);
   protected:
-    std::vector<EntityClass*> loaded_;
-    EntityId                 next_id_ = 1; // temporary
+    std::vector<Entity*> cache_;
+    EntityId             next_id_ = 1; // TODO: Replace w/ DB primary key
 };
+
+extern Database PlayerDB;
+extern Database RoomDB;
 
 }
 

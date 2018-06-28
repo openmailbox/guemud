@@ -2,10 +2,10 @@
 #define GUEMUD_LOGON_H_
 
 #include "chat.h"
+#include "database.h"
 #include "game.h"
 #include "networking/connection_handler.h"
-#include "player_database.h"
-#include "room_database.h"
+#include "room.h"
 
 namespace guemud {
 class Logon : public networking::ConnectionHandler {
