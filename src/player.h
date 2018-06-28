@@ -7,9 +7,11 @@
 namespace guemud {
   class Player : public Entity {
     public:
+      Player();
       Player(networking::Connection* connection, std::string name);
 
       networking::Connection* GetConnection();
+      void SetConnection(networking::Connection& conn);
     private:
       networking::Connection* connection_;
   };

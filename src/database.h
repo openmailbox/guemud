@@ -21,7 +21,7 @@ class Database {
     };
 
     EntityType& Load(EntityId id);
-  private:
+  protected:
     std::vector<EntityType*> loaded_;
     EntityId                 next_id_ = 1; // temporary
 };

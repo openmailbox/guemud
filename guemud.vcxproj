@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClCompile Include="src\chat.cc" />
     <ClCompile Include="src\commands\who_command.cc" />
+    <ClCompile Include="src\entity.cc" />
     <ClCompile Include="src\error.cc" />
     <ClCompile Include="src\game.cc" />
     <ClCompile Include="src\logon.cc" />
@@ -116,11 +117,14 @@
     <ClCompile Include="src\networking\socket.cc" />
     <ClCompile Include="src\networking\telnet.cc" />
     <ClCompile Include="src\player.cc" />
+    <ClCompile Include="src\player_database.cc" />
+    <ClCompile Include="src\room_database.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chat.h" />
     <ClInclude Include="src\command.h" />
     <ClInclude Include="src\commands\who_command.h" />
+    <ClInclude Include="src\database.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\error.h" />
     <ClInclude Include="src\game.h" />
@@ -133,6 +137,9 @@
     <ClInclude Include="src\networking\socket.h" />
     <ClInclude Include="src\networking\telnet.h" />
     <ClInclude Include="src\player.h" />
+    <ClInclude Include="src\player_database.h" />
+    <ClInclude Include="src\room.h" />
+    <ClInclude Include="src\room_database.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

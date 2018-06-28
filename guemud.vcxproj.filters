@@ -57,6 +57,15 @@
     <ClCompile Include="src\error.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\room_database.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\player_database.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chat.h">
@@ -102,6 +111,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\room_database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\room.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\player_database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

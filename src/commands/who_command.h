@@ -5,14 +5,15 @@
 
 #include "../command.h"
 #include "../game.h"
+#include "../player_database.h"
 
 namespace guemud {
-  namespace commands {
-    class WhoCommand : public guemud::Command {
-      public:
-        void Execute(Player& enactor) override;
-    };
-  }
-}
+namespace commands {
+class WhoCommand : public guemud::Command {
+ public:
+  void Execute(Player& enactor) override;
+};
+}  // namespace commands
+}  // namespace guemud
 
 #endif
