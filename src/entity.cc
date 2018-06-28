@@ -16,6 +16,8 @@ namespace guemud {
 
   EntityId Entity::GetId() { return id_; }
 
+  Entity::Reference Entity::GetLocation() { return location_; }
+
   std::string Entity::GetName() { return name_; }
 
   void Entity::SetDescription(std::string desc) { description_ = desc; }

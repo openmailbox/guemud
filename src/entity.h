@@ -18,15 +18,16 @@ class Entity {
 
     Entity();
 
-    void        AddEntity(Entity& new_entity);
-    std::string GetDescription();
-    EntityId    GetId();
-    std::string GetName();
-    void        SetDescription(std::string desc);
-    void        SetId(EntityId id);
-    void        SetLocation(Entity::Reference new_location);
-    void        SetLocation(Entity& new_location);
-    void        SetName(std::string name);
+    void              AddEntity(Entity& new_entity);
+    std::string       GetDescription();
+    EntityId          GetId();
+    Entity::Reference GetLocation();
+    std::string       GetName();
+    void              SetDescription(std::string desc);
+    void              SetId(EntityId id);
+    void              SetLocation(Entity::Reference new_location);
+    void              SetLocation(Entity& new_location);
+    void              SetName(std::string name);
   protected:
     std::vector<Entity::Reference> contents_;
     std::string                    description_;
