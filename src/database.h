@@ -7,11 +7,11 @@
 
 namespace guemud {
 
-template <typename EntityType>
+template <typename EntityClass>
 class Database {
   public:
-    virtual EntityType& Create() {
-      EntityType* entity = new EntityType();
+    virtual EntityClass& Create() {
+      EntityClass* entity = new EntityClass();
 
       entity->SetId(next_id_++);
 
@@ -20,9 +20,14 @@ class Database {
       return *entity;
     };
 
-    EntityType& Load(EntityId id);
+    EntityClass* First() {
+      if (loaded_.size() == 0) return 0;
+
+      return loaded_.at(0);
+    }
+    EntityClass& Load(EntityId id);
   protected:
-    std::vector<EntityType*> loaded_;
+    std::vector<EntityClass*> loaded_;
     EntityId                 next_id_ = 1; // temporary
 };
 

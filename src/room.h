@@ -1,13 +1,12 @@
-#ifndef GUEMUD_ROOM_H_
-#define GUEMUD_ROOM_H_
+#pragma once
 
 #include "entity.h"
 
 namespace guemud {
 
 class Room : public Entity {
+ public:
+  static const EntityType kType = EntityType::Room;
 };
 
-}
-
-#endif
+}  // namespace guemud

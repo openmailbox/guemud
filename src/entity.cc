@@ -13,5 +13,10 @@ namespace guemud {
 
   void Entity::SetId(EntityId id) { id_ = id; }
 
+  void guemud::Entity::SetLocation(Entity& entity) {
+    location_id_ = entity.GetId();
+    // virtual function for kType
+  }
+
   void Entity::SetName(std::string name) { name_ = name; }
 }

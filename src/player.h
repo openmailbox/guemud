@@ -7,6 +7,7 @@
 namespace guemud {
   class Player : public Entity {
     public:
+      static const EntityType kType = EntityType::Player;
       Player();
       Player(networking::Connection* connection, std::string name);
 

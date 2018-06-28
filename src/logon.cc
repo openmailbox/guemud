@@ -11,9 +11,11 @@ namespace guemud {
   void Logon::Handle(std::string data) {
     networking::Connection* conn = connection_;
     Player& player               = PlayerDB.Create();
+    Room* room                   = RoomDB.First();
 
     player.SetConnection(*conn);
     player.SetName(data);
+    player.SetLocation(*room);
 
     conn->GetProtocol()->SendString(*connection_, "Welcome, " + player.GetName() + ".\n");
     conn->RemoveHandler();

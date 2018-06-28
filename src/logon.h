@@ -5,6 +5,7 @@
 #include "game.h"
 #include "networking/connection_handler.h"
 #include "player_database.h"
+#include "room_database.h"
 
 namespace guemud {
 class Logon : public networking::ConnectionHandler {
