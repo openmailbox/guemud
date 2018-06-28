@@ -3,6 +3,15 @@
 namespace guemud {
   Entity::Entity() : id_(0) {}
 
+  void Entity::AddEntity(Entity& new_entity) {
+    Entity::Reference ref;
+
+    ref.id = new_entity.GetId();
+    ref.type = typeid(new_entity).name();
+
+    contents_.push_back(ref);
+  }
+
   std::string Entity::GetDescription() { return description_; }
 
   EntityId Entity::GetId() { return id_; }
@@ -13,9 +22,13 @@ namespace guemud {
 
   void Entity::SetId(EntityId id) { id_ = id; }
 
-  void guemud::Entity::SetLocation(Entity& entity) {
-    location_id_ = entity.GetId();
-    // virtual function for kType
+  void guemud::Entity::SetLocation(Entity::Reference new_location) {
+    location_ = new_location;
+  }
+
+  void guemud::Entity::SetLocation(Entity& new_location) {
+    location_.id = new_location.GetId();
+    location_.type = typeid(new_location).name();
   }
 
   void Entity::SetName(std::string name) { name_ = name; }

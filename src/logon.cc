@@ -17,6 +17,8 @@ namespace guemud {
     player.SetName(data);
     player.SetLocation(*room);
 
+    room->AddEntity(player);
+
     conn->GetProtocol()->SendString(*connection_, "Welcome, " + player.GetName() + ".\n");
     conn->RemoveHandler();
     conn->AddHandler(new Chat(conn, &player));

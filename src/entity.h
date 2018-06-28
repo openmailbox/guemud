@@ -2,35 +2,39 @@
 #define GUEMUD_ENTITY_H_
 
 #include <string>
+#include <typeinfo>
 #include <vector>
 
 namespace guemud {
-  typedef unsigned int EntityId;
 
-  enum class EntityType {
-    Player,
-    Room
-  };
+typedef unsigned int EntityId;
 
-  class Entity {
-    public:
-      Entity();
+class Entity {
+  public:
+    struct Reference {
+      EntityId    id;
+      std::string type; // obtained from typeid(entity).name()
+    };
 
-      std::string GetDescription();
-      EntityId    GetId();
-      std::string GetName();
-      void        SetDescription(std::string desc);
-      void        SetId(EntityId id);
-      void        SetLocation(Entity& entity);
-      void        SetName(std::string name);
-    protected:
-      std::vector<Entity*> contents_;
-      std::string          description_;
-      EntityId             id_;
-      std::string          name_;
-      EntityId             location_id_;
-      EntityType           location_type_;
-  };
+    Entity();
+
+    void        AddEntity(Entity& new_entity);
+    std::string GetDescription();
+    EntityId    GetId();
+    std::string GetName();
+    void        SetDescription(std::string desc);
+    void        SetId(EntityId id);
+    void        SetLocation(Entity::Reference new_location);
+    void        SetLocation(Entity& new_location);
+    void        SetName(std::string name);
+  protected:
+    std::vector<Entity::Reference> contents_;
+    std::string                    description_;
+    EntityId                       id_;
+    std::string                    name_;
+    Entity::Reference              location_;
+};
+
 }
 
 #endif
