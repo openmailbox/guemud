@@ -10,8 +10,8 @@ namespace guemud {
 
   void Logon::Handle(std::string data) {
     networking::Connection* conn = connection_;
-    Player* player               = (Player*)PlayerDB.Create();
-    Room* room                   = (Room*)RoomDB.First();
+    Player* player               = PlayerDB.Create();
+    Room* room                   = *(RoomDB.Begin());
 
     player->SetConnection(*conn);
     player->SetName(data);

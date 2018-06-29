@@ -1,27 +1,46 @@
-#ifndef GUEMUD_DATABASE_H_
-#define GUEMUD_DATABASE_H_
+#pragma once
 
 #include <vector>
 
 #include "entity.h"
+#include "player.h"
+#include "room.h"
 
 namespace guemud {
 
+template <class EntityType>
 class Database {
   public:
-    std::vector<Entity*>::iterator Begin();
-    Entity*                        Create();
-    std::vector<Entity*>::iterator End();
-    Entity*                        First();
-    Entity*                        Load(Entity::Reference ref);
+    typename std::vector<EntityType*>::iterator Begin() { return cache_.begin(); }
+    typename std::vector<EntityType*>::iterator End(){ return cache_.end(); }
+
+    EntityType* Create() {
+      EntityType* entity = new EntityType();
+
+      entity->SetId(next_id_++);
+
+      cache_.push_back(entity);
+
+      return entity;
+    }
+
+    EntityType* Load(EntityId id) {
+      typename std::vector<EntityType*>::iterator itr = cache_.begin();
+
+      while (itr != cache_.end()) {
+        Entity* next = (*itr)++;
+
+        if (id == next->GetId()) return next;
+      }
+
+      return NULL;
+    }
   protected:
-    std::vector<Entity*> cache_;
-    EntityId             next_id_ = 1; // TODO: Replace w/ DB primary key
+    std::vector<EntityType*> cache_;
+    EntityId                 next_id_ = 1; // TODO: Replace w/ DB primary key
 };
 
-extern Database PlayerDB;
-extern Database RoomDB;
+extern Database<Player> PlayerDB;
+extern Database<Room> RoomDB;
 
 }
-
-#endif
