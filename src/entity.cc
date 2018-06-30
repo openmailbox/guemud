@@ -3,6 +3,14 @@
 namespace guemud {
   Entity::Entity() : id_(0) {}
 
+  std::vector<Entity::Reference>::iterator guemud::Entity::BeginContents() {
+    return contents_.begin();
+  }
+
+  std::vector<Entity::Reference>::iterator guemud::Entity::EndContents() {
+    return contents_.end();
+  }
+
   void Entity::AddEntity(Entity& new_entity) {
     Entity::Reference ref;
 

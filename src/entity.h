@@ -18,6 +18,9 @@ class Entity {
 
     Entity();
 
+    std::vector<Entity::Reference>::iterator BeginContents();
+    std::vector<Entity::Reference>::iterator EndContents();
+
     void              AddEntity(Entity& new_entity);
     std::string       GetDescription();
     EntityId          GetId();
