@@ -13,6 +13,9 @@ namespace guemud {
     if (data.compare("/who") == 0) {
       commands::WhoCommand cmd;
       cmd.Execute(*player_);
+    } else if (data.compare("look") == 0) {
+      commands::LookCommand cmd;
+      cmd.Execute(*player_);
     } else {
       Game::GetInstance().Announce(player_->GetName() + " says, \"" + data + "\"\n");
     }

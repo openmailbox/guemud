@@ -57,13 +57,13 @@
     <ClCompile Include="src\error.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\room_database.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\entity.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\player_database.cc">
+    <ClCompile Include="src\database.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\commands\look_command.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,13 +116,10 @@
     <ClInclude Include="src\database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\room_database.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\player_database.h">
+    <ClInclude Include="src\commands\look_command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

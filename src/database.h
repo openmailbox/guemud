@@ -28,9 +28,11 @@ class Database {
       typename std::vector<EntityType*>::iterator itr = cache_.begin();
 
       while (itr != cache_.end()) {
-        Entity* next = (*itr)++;
+        EntityType* next = *itr;
 
         if (id == next->GetId()) return next;
+
+        itr++;
       }
 
       return NULL;

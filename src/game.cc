@@ -9,7 +9,9 @@ namespace guemud {
     is_running_ = true;
     instance_ = *this;
 
-    RoomDB.Create(); // temporary - create a starting room
+    Room* room = RoomDB.Create(); // temporary - create a starting room
+    room->SetName("Origin Room");
+    room->SetDescription("This is where it all begins.");
   }
 
   void Game::Announce(std::string text) {
