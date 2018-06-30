@@ -122,5 +122,8 @@
     <ClInclude Include="src\commands\look_command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

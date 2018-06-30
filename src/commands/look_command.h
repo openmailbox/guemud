@@ -1,7 +1,9 @@
 #pragma once
 
+#include "../action.h"
 #include "../command.h"
 #include "../database.h"
+#include "../game.h"
 #include "../room.h"
 
 namespace guemud {

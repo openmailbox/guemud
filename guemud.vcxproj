@@ -121,6 +121,7 @@
     <ClCompile Include="src\player.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\action.h" />
     <ClInclude Include="src\chat.h" />
     <ClInclude Include="src\command.h" />
     <ClInclude Include="src\commands\look_command.h" />
