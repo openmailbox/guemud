@@ -2,7 +2,6 @@
 #include <time.h>
 
 #include <csignal>
-#include <exception>
 #include <iostream>
 
 #include "game.h"
