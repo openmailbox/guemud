@@ -9,6 +9,8 @@
 #include "networking/connection_manager.h"
 #include "networking/listening_manager.h"
 
+guemud::Game game;
+
 void Cleanup() {
   std::cout << "Shutting down..." << std::endl;
 
@@ -18,32 +20,24 @@ void Cleanup() {
 }
 
 void HandleSignal(int signum) {
-  std::string type;
+  std::string msg;
 
   switch (signum) {
     case SIGINT:
-      type = "SIGINT";
+      std::cout << "Signal " + std::to_string(signum) + " (SIGINT) received." << std::endl;
+      game.Stop();
       break;
     case SIGHUP:
-      type = "SIGHUP";
-      break;
-    case SIGQUIT:
-      type = "SIGQUIT";
-      break;
-    case SIGKILL:
-      type = "SIGKILL";
+      std::cout << "Signal " + std::to_string(signum) + " (SIGHUP) received." << std::endl;
       break;
     case SIGTERM:
-      type = "SIGTERM";
+      std::cout << "Signal " + std::to_string(signum) + " (SIGTERM) received." << std::endl;
+      game.Stop();
       break;
     default:
-      type = "Unknown";
+      std::cout << "Signal " + std::to_string(signum) + " (SIGQUIT) received." << std::endl;
       break;
   }
-
-  std::string msg = "Signal " + std::to_string(signum) + " (" + type + ") received.";
-  std::cout << msg << std::endl;
-  throw msg;
 }
 
 int main() {
@@ -61,7 +55,6 @@ int main() {
       loop_time.tv_sec  = 0;
     #endif
 
-    guemud::Game game;
     guemud::networking::ConnectionManager connection_manager;
     guemud::networking::ListeningManager listening_manager(4040, connection_manager);
 

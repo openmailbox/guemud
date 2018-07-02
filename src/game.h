@@ -18,6 +18,7 @@ class Game {
   void DoAction(Action action);
   void ExecuteLoop();
   bool IsRunning();
+  void Stop();
 
  private:
   static Game instance_;
