@@ -12,7 +12,7 @@ void LookCommand::Execute(Player& enactor) {
   action.action_type = "look";
   action.entities.push_back(ref);
 
-  Game::GetInstance().DoAction(action);
+  Game::GetInstance().AddAction(action);
 }
 
 }  // namespace commands

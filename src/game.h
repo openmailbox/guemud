@@ -20,6 +20,7 @@ class Game {
 
   Game();
 
+  void AddAction(Action action, unsigned int seconds_from_now = 0);
   void Announce(std::string text);
   void DoAction(Action& action);
   void ExecuteLoop();
@@ -27,7 +28,7 @@ class Game {
   void Stop();
 
  private:
-  static Game instance_;
+  static Game* instance_;
 
   bool       is_running_;
   TimerQueue timer_registry_;

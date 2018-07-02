@@ -12,6 +12,8 @@ guemud::Game game;
 void Cleanup() {
   std::cout << "Shutting down..." << std::endl;
 
+  // TODO: Close sockets, etc.
+
   #ifdef WIN32
     WSACleanup();
   #endif

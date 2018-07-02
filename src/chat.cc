@@ -2,7 +2,7 @@
 #include "networking/connection.h"
 
 namespace guemud {
-  Chat::Chat(networking::Connection* conn, Player* player) : 
+  Chat::Chat(networking::Connection* conn, Player* player) :
     networking::ConnectionHandler(conn), player_(player) {}
 
   void Chat::Enter() {
@@ -19,6 +19,7 @@ namespace guemud {
     } else {
       Game::GetInstance().Announce(player_->GetName() + " says, \"" + data + "\"\n");
     }
+    // TODO: Prompt shows up before timed actions
     ShowPrompt();
   }
 

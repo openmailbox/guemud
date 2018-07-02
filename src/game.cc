@@ -2,18 +2,30 @@
 
 namespace guemud {
 
-Game Game::instance_;
+Game* Game::instance_;
 
-Game& Game::GetInstance() { return instance_;  }
+Game& Game::GetInstance() { return *instance_;  }
 
 Game::Game() {
   is_running_ = true;
-  instance_ = *this;
+  instance_ = this;
 
   // temporary - create a starting room
   Room* room = RoomDB.Create();
   room->SetName("Origin Room");
   room->SetDescription("This is where it all begins.");
+}
+
+void Game::AddAction(Action action, unsigned int seconds_from_now) {
+  TimedAction* timed_action = new TimedAction();
+
+  std::chrono::duration<int> offset(seconds_from_now);
+  std::chrono::time_point<std::chrono::steady_clock> time = std::chrono::steady_clock::now() + offset;
+
+  timed_action->action = action;
+  timed_action->execution_time = time;
+
+  timer_registry_.push(timed_action);
 }
 
 void Game::Announce(std::string text) {
@@ -38,7 +50,7 @@ void Game::ExecuteLoop() {
 
   std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
 
-  while (timer_registry_.top()->execution_time < current_time) {
+  while (timer_registry_.size() > 0 && timer_registry_.top()->execution_time < current_time) {
     TimedAction* next_action = timer_registry_.top();
 
     timer_registry_.pop();
