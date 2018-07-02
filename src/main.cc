@@ -10,7 +10,7 @@
 #include "networking/listening_manager.h"
 
 void Cleanup() {
-  std::cout << "Shutting down." << std::endl;
+  std::cout << "Shutting down..." << std::endl;
 
   #ifdef WIN32
     WSACleanup();
@@ -18,8 +18,32 @@ void Cleanup() {
 }
 
 void HandleSignal(int signum) {
-  std::cout << "Signal (" << signum << ") received." << std::endl;
-  throw "Signal " + std::to_string(signum);
+  std::string type;
+
+  switch (signum) {
+    case SIGINT:
+      type = "SIGINT";
+      break;
+    case SIGHUP:
+      type = "SIGHUP";
+      break;
+    case SIGQUIT:
+      type = "SIGQUIT";
+      break;
+    case SIGKILL:
+      type = "SIGKILL";
+      break;
+    case SIGTERM:
+      type = "SIGTERM";
+      break;
+    default:
+      type = "Unknown";
+      break;
+  }
+
+  std::string msg = "Signal " + std::to_string(signum) + " (" + type + ") received.";
+  std::cout << msg << std::endl;
+  throw msg;
 }
 
 int main() {
@@ -54,23 +78,19 @@ int main() {
 
   } catch (std::exception& e) {
     std::cerr << "An exception occurred: " << e.what() << std::endl;
-    Cleanup();
-    return 1;
   } catch (const char* msg) {
     std::cerr << "An exception occurred: " << msg << std::endl;
-    Cleanup();
-    return 1;
+  } catch (std::string msg) {
+    std::cerr << "An exception occurred: " << msg << std::endl;
   } catch (int e) {
     std::cerr << "An exception occurred: " << e << std::endl;
-    Cleanup();
-    return 1;
   } catch (...) {
-    std::cerr << "An exception occurred." << std::endl;
-    Cleanup();
-    return 1;
+    std::cerr << "An unknown exception occurred." << std::endl;
   }
 
   Cleanup();
+
+  std::cout << "Exited." << std::endl;
 
   return 0;
 }
