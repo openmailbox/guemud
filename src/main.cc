@@ -43,42 +43,29 @@ void HandleSignal(int signum) {
 int main() {
   std::cout << "Starting GueMUD..." << std::endl;
 
-  try {
-    signal(SIGINT, HandleSignal);
+  signal(SIGINT, HandleSignal);
 
+  #ifdef WIN32
+    WSADATA winsockdata;
+    WSAStartup(MAKEWORD(2, 2), &winsockdata);
+  #else
+    struct timespec loop_time, loop_remain;
+    loop_time.tv_nsec = 1000;
+    loop_time.tv_sec  = 0;
+  #endif
+
+  guemud::networking::ConnectionManager connection_manager;
+  guemud::networking::ListeningManager listening_manager(4040, connection_manager);
+
+  while (game.IsRunning()) {
+    listening_manager.Listen();
+    connection_manager.Manage();
+    game.ExecuteLoop();
     #ifdef WIN32
-      WSADATA winsockdata;
-      WSAStartup(MAKEWORD(2, 2), &winsockdata);
+      Sleep(1);
     #else
-      struct timespec loop_time, loop_remain;
-      loop_time.tv_nsec = 1000;
-      loop_time.tv_sec  = 0;
+      nanosleep(&loop_time, &loop_remain); // yield thread to OS
     #endif
-
-    guemud::networking::ConnectionManager connection_manager;
-    guemud::networking::ListeningManager listening_manager(4040, connection_manager);
-
-    while (game.IsRunning()) {
-      listening_manager.Listen();
-      connection_manager.Manage();
-      game.ExecuteLoop();
-   	  #ifdef WIN32
-        Sleep(1);
-  	  #else
-        nanosleep(&loop_time, &loop_remain); // yield thread to OS
-  	  #endif
-    }
-
-  } catch (std::exception& e) {
-    std::cerr << "An exception occurred: " << e.what() << std::endl;
-  } catch (const char* msg) {
-    std::cerr << "An exception occurred: " << msg << std::endl;
-  } catch (std::string msg) {
-    std::cerr << "An exception occurred: " << msg << std::endl;
-  } catch (int e) {
-    std::cerr << "An exception occurred: " << e << std::endl;
-  } catch (...) {
-    std::cerr << "An unknown exception occurred." << std::endl;
   }
 
   Cleanup();
