@@ -10,7 +10,8 @@ Game::Game() {
   is_running_ = true;
   instance_ = *this;
 
-  Room* room = RoomDB.Create(); // temporary - create a starting room
+  // temporary - create a starting room
+  Room* room = RoomDB.Create();
   room->SetName("Origin Room");
   room->SetDescription("This is where it all begins.");
 }
@@ -25,7 +26,7 @@ void Game::Announce(std::string text) {
   }
 }
 
-void guemud::Game::DoAction(Action action) {
+void guemud::Game::DoAction(Action& action) {
   if (action.action_type == "look") {
     Player* player = PlayerDB.Load(action.entities[0].id);
     ShowRoom(*player);
@@ -33,7 +34,19 @@ void guemud::Game::DoAction(Action action) {
 }
 
 void Game::ExecuteLoop() {
-  // perform actions
+  if (timer_registry_.size() == 0) return;
+
+  std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
+
+  while (timer_registry_.top()->execution_time < current_time) {
+    TimedAction* next_action = timer_registry_.top();
+
+    timer_registry_.pop();
+
+    DoAction(next_action->action);
+
+    delete next_action;
+  }
 }
 
 bool Game::IsRunning() { return is_running_; }

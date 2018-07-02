@@ -20,4 +20,4 @@ commands: $(COMMANDSDIR)/$(wildcard *.cc)
 	cd $(COMMANDSDIR) && $(CXX) $(CFLAGS) *.cc -c;
 
 clean:
-	rm $(EXE) $(NETWORKINGDIR)/*.o $(SRCDIR)/*.o; $(COMMANDSDIR)/*.o
+	rm $(EXE) $(NETWORKINGDIR)/*.o $(SRCDIR)/*.o $(COMMANDSDIR)/*.o

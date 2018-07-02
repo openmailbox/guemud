@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <time.h>
 
 #include <csignal>
@@ -19,8 +18,6 @@ void Cleanup() {
 }
 
 void HandleSignal(int signum) {
-  std::string msg;
-
   switch (signum) {
     case SIGINT:
       std::cout << "Signal " + std::to_string(signum) + " (SIGINT) received." << std::endl;
