@@ -109,6 +109,7 @@
     <ClCompile Include="src\entity.cc" />
     <ClCompile Include="src\error.cc" />
     <ClCompile Include="src\game.cc" />
+    <ClCompile Include="src\logger.cc" />
     <ClCompile Include="src\logon.cc" />
     <ClCompile Include="src\main.cc" />
     <ClCompile Include="src\networking\connection.cc" />
@@ -119,6 +120,7 @@
     <ClCompile Include="src\networking\socket.cc" />
     <ClCompile Include="src\networking\telnet.cc" />
     <ClCompile Include="src\player.cc" />
+    <ClCompile Include="src\timed_action.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\action.h" />
@@ -130,6 +132,7 @@
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\error.h" />
     <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\logger.h" />
     <ClInclude Include="src\logon.h" />
     <ClInclude Include="src\networking\connection.h" />
     <ClInclude Include="src\networking\connection_handler.h" />
@@ -140,6 +143,7 @@
     <ClInclude Include="src\networking\telnet.h" />
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\room.h" />
+    <ClInclude Include="src\timed_action.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

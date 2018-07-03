@@ -66,6 +66,12 @@
     <ClCompile Include="src\commands\look_command.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\timed_action.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logger.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chat.h">
@@ -123,6 +129,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\timed_action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

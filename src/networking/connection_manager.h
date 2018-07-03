@@ -15,28 +15,31 @@
 #include <set>
 
 #include "../error.h"
+#include "../logger.h"
 #include "../logon.h"
 #include "connection.h"
 #include "connection_manager.h"
 
 namespace guemud {
-  namespace networking {
-    class ConnectionManager {
-     public:
-      ConnectionManager();
-      void Manage();
-      void NewConnection(int socket);
+namespace networking {
 
-     private:
-      fd_set socket_set_;
-      fd_set activity_set_;
-      std::set<Connection*, Connection::Compare> connections_;
+class ConnectionManager {
+ public:
+  ConnectionManager();
+  void Manage();
+  void NewConnection(int socket);
 
-      void CheckErrors(int result);
-      void Listen();
-      void Send();
-    };
-  }  // namespace networking
-}    // namespace guemud
+ private:
+  fd_set socket_set_;
+  fd_set activity_set_;
+  std::set<Connection*, Connection::Compare> connections_;
+
+  void CheckErrors(int result);
+  void Listen();
+  void Send();
+};
+
+}  // namespace networking
+}  // namespace guemud
 
 #endif
