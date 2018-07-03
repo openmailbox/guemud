@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../commands/chat_command.h"
 #include "../commands/look_command.h"
 #include "../commands/who_command.h"
 #include "../game.h"

@@ -72,6 +72,9 @@
     <ClCompile Include="src\handlers\logon.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\commands\chat_command.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\handlers\logon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\commands\chat_command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
