@@ -51,7 +51,7 @@ namespace guemud {
             int shutdown_method = SHUT_RDWR;
           #endif
 
-          guemud::SystemLog.Log("Shutting down " + (*current)->GetSocket());
+          guemud::SystemLog.Log("Shutting down " + std::to_string((*current)->GetSocket()));
           FD_CLR((*current)->GetSocket(), &socket_set_);
           shutdown((*current)->GetSocket(), shutdown_method);
           connections_.erase(current);
@@ -68,7 +68,7 @@ namespace guemud {
     void ConnectionManager::NewConnection(int socket) {
       Connection* conn = new Connection(socket);
 
-      guemud::SystemLog.Log("New connection " + socket);
+      guemud::SystemLog.Log("New connection " + std::to_string(socket));
 
       FD_SET(socket, &socket_set_);
 
