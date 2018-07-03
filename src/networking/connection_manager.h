@@ -16,7 +16,7 @@
 
 #include "../error.h"
 #include "../logger.h"
-#include "../logon.h"
+#include "../handlers/logon.h"
 #include "connection.h"
 #include "connection_manager.h"
 

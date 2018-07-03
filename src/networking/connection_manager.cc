@@ -73,7 +73,7 @@ namespace guemud {
       FD_SET(socket, &socket_set_);
 
       connections_.insert(conn);
-      conn->AddHandler(new guemud::Logon(conn));
+      conn->AddHandler(new guemud::handlers::Logon(conn));
     }
 
     void ConnectionManager::Send() {

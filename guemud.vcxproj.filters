@@ -15,13 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\chat.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\game.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\logon.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cc">
@@ -72,18 +66,18 @@
     <ClCompile Include="src\logger.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\handlers\game_handler.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\handlers\logon.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\chat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\logon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\player.h">
@@ -135,6 +129,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\handlers\game_handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\handlers\logon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
