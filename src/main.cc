@@ -3,6 +3,7 @@
 #include <csignal>
 #include <iostream>
 
+#include "database.h"
 #include "game.h"
 #include "logger.h"
 #include "networking/connection_manager.h"
@@ -23,26 +24,33 @@ void Cleanup() {
 void HandleSignal(int signum) {
   switch (signum) {
     case SIGINT:
-      guemud::SystemLog.Log("Signal " + std::to_string(signum) + " (SIGINT) received.");
+      guemud::SystemLog.Log("Signal " + std::to_string(signum) +
+                            " (SIGINT) received.");
       game.Stop();
       break;
 #ifndef WIN32
     case SIGHUP:
-      guemud::SystemLog.Log("Signal " + std::to_string(signum) + " (SIGHUP) received.");
+      guemud::SystemLog.Log("Signal " + std::to_string(signum) +
+                            " (SIGHUP) received.");
       break;
 #endif
     case SIGTERM:
-      guemud::SystemLog.Log("Signal " + std::to_string(signum) + " (SIGTERM) received.");
+      guemud::SystemLog.Log("Signal " + std::to_string(signum) +
+                            " (SIGTERM) received.");
       game.Stop();
       break;
     default:
-      guemud::SystemLog.Log("Signal " + std::to_string(signum) + " (SIGQUIT) received.");
+      guemud::SystemLog.Log("Signal " + std::to_string(signum) +
+                            " (SIGQUIT) received.");
       break;
   }
 }
 
 int main() {
   guemud::SystemLog.Log("Starting GueMUD...");
+
+  guemud::RoomDB.Initialize();
+  guemud::RoomDB.Load(3); // temporary
 
   signal(SIGINT, HandleSignal);
 
@@ -54,7 +62,6 @@ int main() {
   loop_time.tv_nsec = 1000;
   loop_time.tv_sec = 0;
 #endif
-
   guemud::networking::ConnectionManager connection_manager;
   guemud::networking::ListeningManager listening_manager(4040,
                                                          connection_manager);

@@ -10,8 +10,6 @@ Game::Game() {
   is_running_ = true;
   instance_ = this;
 
-  RoomDB.Initialize();
-
   // temporary - create a starting room
   Room* room = RoomDB.Create();
   room->SetName("Origin Room");
