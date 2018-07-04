@@ -121,6 +121,7 @@
     <ClCompile Include="src\networking\socket.cc" />
     <ClCompile Include="src\networking\telnet.cc" />
     <ClCompile Include="src\player.cc" />
+    <ClCompile Include="src\sqlite3.c" />
     <ClCompile Include="src\timed_action.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="src\networking\telnet.h" />
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\room.h" />
+    <ClInclude Include="src\sqlite3.h" />
     <ClInclude Include="src\timed_action.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

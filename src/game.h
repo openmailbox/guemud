@@ -12,7 +12,9 @@
 
 namespace guemud {
 
-typedef std::priority_queue<TimedAction*, std::vector<TimedAction*>, TimedAction::Compare> TimerQueue;
+typedef std::priority_queue<TimedAction*, std::vector<TimedAction*>,
+                            TimedAction::Compare>
+    TimerQueue;
 
 class Game {
  public:
@@ -30,7 +32,7 @@ class Game {
  private:
   static Game* instance_;
 
-  bool       is_running_;
+  bool is_running_;
   TimerQueue timer_registry_;
 
   void ShowRoom(Player& player);
