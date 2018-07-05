@@ -33,11 +33,19 @@ class Cache {
     return entity;
   }
 
+  EntityType* First() {
+    std::string query = "SELECT * FROM " + table_name_ + " LIMIT 1";
+    LoadFromDatabase(query);
+    return *(Begin());
+  }
+
   EntityType* Load(EntityId id) {
     EntityType* entity = FindFromCache(id);
 
     if (entity == NULL) {
-      LoadFromDatabase(id);
+      std::string query =
+        "select * from " + table_name_ + " where id = " + std::to_string(id);
+      LoadFromDatabase(query);
       entity = FindFromCache(id);
     }
 
@@ -64,10 +72,7 @@ class Cache {
     return NULL;
   }
 
-  void LoadFromDatabase(EntityId id) {
-    std::string query =
-        "SELECT * FROM " + table_name_ + " WHERE id = " + std::to_string(id);
-
+  void LoadFromDatabase(std::string query) {
     DatabaseResult result = adapter_.Execute(query);
     std::vector<DatabaseRow>::iterator itr = result.begin();
 

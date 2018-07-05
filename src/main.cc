@@ -50,7 +50,6 @@ int main() {
   guemud::SystemLog.Log("Starting GueMUD...");
 
   guemud::database::RoomDB.Initialize();
-  guemud::database::RoomDB.Load(3); // temporary
 
   signal(SIGINT, HandleSignal);
 

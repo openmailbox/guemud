@@ -9,11 +9,6 @@ Game& Game::GetInstance() { return *instance_; }
 Game::Game() {
   is_running_ = true;
   instance_ = this;
-
-  // temporary - create a starting room
-  Room* room = database::RoomDB.Create();
-  room->SetName("Origin Room");
-  room->SetDescription("This is where it all begins.");
 }
 
 void Game::AddAction(Action action, unsigned int seconds_from_now) {

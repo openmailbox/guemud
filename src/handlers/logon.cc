@@ -14,7 +14,7 @@ void Logon::Enter() {
 void Logon::Handle(std::string data) {
   networking::Connection* conn = connection_;
   Player* player = database::PlayerDB.Create();
-  Room* room = *(database::RoomDB.Begin());
+  Room* room = database::RoomDB.First();
 
   player->SetConnection(*conn);
   player->SetName(data);
