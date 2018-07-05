@@ -54,9 +54,6 @@
     <ClCompile Include="src\entity.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\database.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\commands\look_command.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,6 +73,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\sqlite3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\database\cache.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\database\sqlite.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,9 +122,6 @@
     <ClInclude Include="src\error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\database.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -147,6 +147,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\sqlite3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\database\cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\database\sqlite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

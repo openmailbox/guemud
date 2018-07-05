@@ -13,8 +13,8 @@ void Logon::Enter() {
 
 void Logon::Handle(std::string data) {
   networking::Connection* conn = connection_;
-  Player* player = PlayerDB.Create();
-  Room* room = *(RoomDB.Begin());
+  Player* player = database::PlayerDB.Create();
+  Room* room = *(database::RoomDB.Begin());
 
   player->SetConnection(*conn);
   player->SetName(data);

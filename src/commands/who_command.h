@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../command.h"
+#include "../database/cache.h"
 #include "../game.h"
 
 namespace guemud {

@@ -3,16 +3,17 @@
 #include <sstream>
 #include <vector>
 
-#include "entity.h"
-#include "logger.h"
-#include "player.h"
-#include "room.h"
-#include "sqlite3.h"
+#include "../entity.h"
+#include "../logger.h"
+#include "../player.h"
+#include "../room.h"
+#include "../sqlite3.h"
 
 namespace guemud {
+namespace database {
 
 template <class EntityType>
-class Database {
+class Cache {
  public:
   typename std::vector<EntityType*>::iterator Begin() { return cache_.begin(); }
   typename std::vector<EntityType*>::iterator End() { return cache_.end(); }
@@ -90,10 +91,10 @@ class Database {
 };
 
 template <class EntityType>
-const std::string Database<EntityType>::kDatabaseFile =
-    "data/guemud.sqlite3";  // TODO: Configuration
+const std::string Cache<EntityType>::kDatabaseFile = "data/guemud.sqlite3";  // TODO: Configuration
 
-extern Database<Player> PlayerDB;
-extern Database<Room> RoomDB;
+extern Cache<Player> PlayerDB;
+extern Cache<Room> RoomDB;
 
+}
 }  // namespace guemud

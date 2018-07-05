@@ -3,7 +3,7 @@
 #include <csignal>
 #include <iostream>
 
-#include "database.h"
+#include "database/cache.h"
 #include "game.h"
 #include "logger.h"
 #include "networking/connection_manager.h"
@@ -49,8 +49,8 @@ void HandleSignal(int signum) {
 int main() {
   guemud::SystemLog.Log("Starting GueMUD...");
 
-  guemud::RoomDB.Initialize();
-  guemud::RoomDB.Load(3); // temporary
+  guemud::database::RoomDB.Initialize();
+  guemud::database::RoomDB.Load(3); // temporary
 
   signal(SIGINT, HandleSignal);
 

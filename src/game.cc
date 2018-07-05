@@ -11,7 +11,7 @@ Game::Game() {
   instance_ = this;
 
   // temporary - create a starting room
-  Room* room = RoomDB.Create();
+  Room* room = database::RoomDB.Create();
   room->SetName("Origin Room");
   room->SetDescription("This is where it all begins.");
 }
@@ -30,9 +30,9 @@ void Game::AddAction(Action action, unsigned int seconds_from_now) {
 }
 
 void Game::Announce(std::string text) {
-  std::vector<Player*>::iterator itr = PlayerDB.Begin();
+  std::vector<Player*>::iterator itr = database::PlayerDB.Begin();
 
-  while (itr != PlayerDB.End()) {
+  while (itr != database::PlayerDB.End()) {
     networking::Connection* conn = (*itr)->GetConnection();
     conn->GetProtocol()->SendString(*conn, text);
     itr++;
@@ -41,10 +41,10 @@ void Game::Announce(std::string text) {
 
 void guemud::Game::DoAction(Action& action) {
   if (action.action_type == "look") {
-    Player* player = PlayerDB.Load(action.entities[0].id);
+    Player* player = database::PlayerDB.Load(action.entities[0].id);
     ShowRoom(*player);
   } else if (action.action_type == "chat") {
-    Player* player = PlayerDB.Load(action.entities[0].id);
+    Player* player = database::PlayerDB.Load(action.entities[0].id);
     Announce("<chat> " + player->GetName() + " says, \"" + action.data + "\"\n");
   }
 }
@@ -72,7 +72,7 @@ bool Game::IsRunning() { return is_running_; }
 void guemud::Game::ShowRoom(Player& player) {
   Entity::Reference ref = player.GetLocation();
   networking::Connection* conn = player.GetConnection();
-  Room* room = RoomDB.Load(ref.id);
+  Room* room = database::RoomDB.Load(ref.id);
 
   std::vector<Entity::Reference>::iterator itr = room->BeginContents();
 
@@ -81,7 +81,7 @@ void guemud::Game::ShowRoom(Player& player) {
   conn->GetProtocol()->SendString(*conn, "Players here:\n");
 
   while (itr != room->EndContents()) {
-    Player* player = PlayerDB.Load((*itr).id);
+    Player* player = database::PlayerDB.Load((*itr).id);
     conn->GetProtocol()->SendString(*conn, player->GetName() + "\n");
     itr++;
   }

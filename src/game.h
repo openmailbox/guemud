@@ -5,7 +5,7 @@
 #include <queue>
 
 #include "action.h"
-#include "database.h"
+#include "database/cache.h"
 #include "networking/connection.h"
 #include "player.h"
 #include "timed_action.h"
