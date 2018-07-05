@@ -1,13 +1,14 @@
 #pragma once
 
 #include <sstream>
+#include <typeinfo>
 #include <vector>
 
 #include "../entity.h"
 #include "../logger.h"
 #include "../player.h"
 #include "../room.h"
-#include "../sqlite3.h"
+#include "sqlite.h"
 
 namespace guemud {
 namespace database {
@@ -17,6 +18,10 @@ class Cache {
  public:
   typename std::vector<EntityType*>::iterator Begin() { return cache_.begin(); }
   typename std::vector<EntityType*>::iterator End() { return cache_.end(); }
+
+  Cache(std::string table_name) : table_name_(table_name) {}
+
+  void Initialize() { adapter_.Initialize(); }
 
   EntityType* Create() {
     EntityType* entity = new EntityType();
@@ -28,20 +33,24 @@ class Cache {
     return entity;
   }
 
-  // TODO: Don't need a separate connection for each subclass
-  // TODO: Cleanup/shutdown
-  void Initialize() {
-    int err = sqlite3_open(kDatabaseFile.data(), &db_);
+  EntityType* Load(EntityId id) {
+    EntityType* entity = FindFromCache(id);
 
-    if (err != SQLITE_OK) {
-      std::string msg = sqlite3_errmsg(db_);
-      SystemLog.Log("Unable to open database: " + msg);
-      sqlite3_close(db_);
-      throw msg;
+    if (entity == NULL) {
+      LoadFromDatabase(id);
+      entity = FindFromCache(id);
     }
+
+    return entity;
   }
 
-  EntityType* Load(EntityId id) {
+ protected:
+  Sqlite adapter_;
+  std::vector<EntityType*> cache_;
+  EntityId next_id_ = 1;  // TODO: Replace w/ DB primary key
+  std::string table_name_;
+
+  EntityType* FindFromCache(EntityId id) {
     typename std::vector<EntityType*>::iterator itr = cache_.begin();
 
     while (itr != cache_.end()) {
@@ -52,49 +61,36 @@ class Cache {
       itr++;
     }
 
-    // If we got here, there was no cached result
-    std::string query = "SELECT id, name, description FROM rooms LIMIT 1";
-    char* error_message = 0;
-
-    int err =
-        sqlite3_exec(db_, query.data(), LoadRowCallback, 0, &error_message);
-
-    if (err != SQLITE_OK) {
-      SystemLog.Log("SQL error: " + (std::string)error_message);
-      sqlite3_free(error_message);
-    }
-
     return NULL;
   }
 
- protected:
-  static const std::string kDatabaseFile;
+  void LoadFromDatabase(EntityId id) {
+    std::string query =
+        "SELECT * FROM " + table_name_ + " WHERE id = " + std::to_string(id);
 
-  std::vector<EntityType*> cache_;
-  sqlite3* db_;
-  EntityId next_id_ = 1;  // TODO: Replace w/ DB primary key
+    DatabaseResult result = adapter_.Execute(query);
+    std::vector<DatabaseRow>::iterator itr = result.begin();
 
-  static int LoadRowCallback(void* unused, int column_count, char** values,
-                             char** columns) {
-    std::stringstream msg;
-    msg << "Loaded " << typeid(EntityType).name() << " - ";
+    while (itr != result.end()) {
+      std::stringstream msg;
+      EntityType* entity = new EntityType();
 
-    for (int i = 0; i < column_count; i++) {
-      msg << columns[i] << " = " << values[i];
-      if (i < column_count - 1) msg << " | ";
+      entity->SetId(std::stoi((*itr).at("id")));
+      entity->SetName((*itr).at("name"));
+      entity->SetDescription((*itr).at("description"));
+
+      cache_.push_back(entity);
+
+      msg << "LOAD " << typeid(entity).name() << " " << entity->GetId();
+      SystemLog.Log(msg.str());
+
+      itr++;
     }
-
-    SystemLog.Log(msg.str());
-
-    return 0;
   }
 };
-
-template <class EntityType>
-const std::string Cache<EntityType>::kDatabaseFile = "data/guemud.sqlite3";  // TODO: Configuration
 
 extern Cache<Player> PlayerDB;
 extern Cache<Room> RoomDB;
 
-}
+}  // namespace database
 }  // namespace guemud

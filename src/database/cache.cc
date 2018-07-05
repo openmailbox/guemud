@@ -3,8 +3,8 @@
 namespace guemud {
 namespace database {
 
-Cache<Player> PlayerDB;
-Cache<Room> RoomDB;
+Cache<Player> PlayerDB("players");
+Cache<Room> RoomDB("rooms");
 
 }
 }
