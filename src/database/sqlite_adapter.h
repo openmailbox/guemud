@@ -10,10 +10,10 @@
 namespace guemud {
 namespace database {
 
-  typedef std::map<std::string, std::string> DatabaseRow;
-  typedef std::vector<DatabaseRow>           DatabaseResult;
+typedef std::map<std::string, std::string> DatabaseRow;
+typedef std::vector<DatabaseRow>           DatabaseResult;
 
-class Sqlite {
+class SqliteAdapter {
  public:
   void           Initialize();
   DatabaseResult Execute(std::string query);

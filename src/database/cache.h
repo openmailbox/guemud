@@ -8,7 +8,7 @@
 #include "../logger.h"
 #include "../player.h"
 #include "../room.h"
-#include "sqlite.h"
+#include "sqlite_adapter.h"
 
 namespace guemud {
 namespace database {
@@ -53,10 +53,10 @@ class Cache {
   }
 
  protected:
-  Sqlite adapter_;
+  SqliteAdapter            adapter_;
   std::vector<EntityType*> cache_;
-  EntityId next_id_ = 1;  // TODO: Replace w/ DB primary key
-  std::string table_name_;
+  EntityId                 next_id_ = 1;  // TODO: Replace w/ DB primary key
+  std::string              table_name_;
 
   EntityType* FindFromCache(EntityId id) {
     typename std::vector<EntityType*>::iterator itr = cache_.begin();
