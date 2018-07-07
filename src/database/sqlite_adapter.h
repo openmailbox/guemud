@@ -13,10 +13,21 @@ namespace database {
 typedef std::map<std::string, std::string> DatabaseRow;
 typedef std::vector<DatabaseRow>           DatabaseResult;
 
+class SqliteCursor {
+ public:
+   SqliteCursor(sqlite3_stmt*);
+   ~SqliteCursor();
+
+   DatabaseRow Next();
+ private:
+   sqlite3_stmt* statement_;
+};
+
 class SqliteAdapter {
  public:
   void           Initialize();
   DatabaseResult Execute(std::string query);
+  SqliteCursor   Prepare(std::string query);
 
  private:
   static const std::string kDatabaseFile; // TODO: Replace with configuration
@@ -26,6 +37,7 @@ class SqliteAdapter {
 
   sqlite3* db_;
 };
+
 
 }
 }
