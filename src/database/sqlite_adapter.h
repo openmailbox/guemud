@@ -18,8 +18,12 @@ class SqliteCursor {
    SqliteCursor(sqlite3_stmt*);
    ~SqliteCursor();
 
+   bool        IsFinished();
    DatabaseRow Next();
  private:
+   DatabaseRow   BuildRow();
+
+   bool          is_finished_;
    sqlite3_stmt* statement_;
 };
 
