@@ -52,6 +52,8 @@ class Cache {
     return entity;
   }
 
+  void Shutdown() { adapter_.Shutdown(); }
+
  protected:
   SqliteAdapter            adapter_;
   std::vector<EntityType*> cache_;
@@ -73,23 +75,25 @@ class Cache {
   }
 
   void LoadFromDatabase(std::string query) {
-    DatabaseResult result = adapter_.Execute(query);
-    std::vector<DatabaseRow>::iterator itr = result.begin();
+    DatabaseRow row;
+    SqliteCursor cursor = adapter_.Prepare(query);
 
-    while (itr != result.end()) {
+    while (!cursor.IsFinished()) {
       std::stringstream msg;
+
+      DatabaseRow row    = cursor.GetCurrentRow();
       EntityType* entity = new EntityType();
 
-      entity->SetId(std::stoi((*itr).at("id")));
-      entity->SetName((*itr).at("name"));
-      entity->SetDescription((*itr).at("description"));
+      entity->SetId(std::stoi(row.at("id")));
+      entity->SetName(row.at("name"));
+      entity->SetDescription(row.at("description"));
 
       cache_.push_back(entity);
 
       msg << "LOAD " << typeid(entity).name() << " " << entity->GetId();
       SystemLog.Log(msg.str());
 
-      itr++;
+      cursor.Next();
     }
   }
 };

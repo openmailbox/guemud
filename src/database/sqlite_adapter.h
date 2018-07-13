@@ -18,10 +18,10 @@ class SqliteCursor {
    SqliteCursor(sqlite3_stmt*);
    ~SqliteCursor();
 
+   DatabaseRow GetCurrentRow();
    bool        IsFinished();
-   DatabaseRow Next();
+   void        Next();
  private:
-   DatabaseRow   BuildRow();
 
    bool          is_finished_;
    sqlite3_stmt* statement_;
@@ -32,6 +32,7 @@ class SqliteAdapter {
   void           Initialize();
   DatabaseResult Execute(std::string query);
   SqliteCursor   Prepare(std::string query);
+  void           Shutdown();
 
  private:
   static const std::string kDatabaseFile; // TODO: Replace with configuration

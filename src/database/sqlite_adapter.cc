@@ -5,13 +5,14 @@ namespace database {
 
 SqliteCursor::SqliteCursor(sqlite3_stmt* stmt) : statement_(stmt) {
   is_finished_ = false;
+  Next() ; // advance to the first row
 };
 
 SqliteCursor::~SqliteCursor() {
   sqlite3_finalize(statement_);
 }
 
-DatabaseRow SqliteCursor::BuildRow() {
+DatabaseRow SqliteCursor::GetCurrentRow() {
   DatabaseRow row;
 
   for (int i = 0; i < sqlite3_data_count(statement_); i++) {
@@ -43,23 +44,15 @@ bool SqliteCursor::IsFinished() {
   return is_finished_;
 }
 
-DatabaseRow SqliteCursor::Next() {
-  DatabaseRow row;
+void SqliteCursor::Next() {
   int err = sqlite3_step(statement_);
 
-  switch(err) {
-    case SQLITE_DONE:
-      is_finished_ = true;
-      break;
-    case SQLITE_OK:
-      row = BuildRow();
-      break;
-    default:
-      SystemLog.Log("SQL error: " + std::to_string(err));
-      throw err;
+  if (err == SQLITE_DONE) {
+    is_finished_ = true;
+  } else if (err != SQLITE_ROW) {
+    SystemLog.Log("SQL error: " + std::to_string(err));
+    throw err;
   }
-
-  return row;
 }
 
 const std::string SqliteAdapter::kDatabaseFile = "data/guemud.sqlite3";
@@ -113,6 +106,10 @@ SqliteCursor SqliteAdapter::Prepare(std::string query) {
   }
 
   return SqliteCursor(statement);
+}
+
+void SqliteAdapter::Shutdown() {
+  sqlite3_close_v2(db_);
 }
 
 }

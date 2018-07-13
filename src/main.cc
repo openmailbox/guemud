@@ -14,7 +14,8 @@ guemud::Game game;
 void Cleanup() {
   guemud::SystemLog.Log("Shutting down...");
 
-  // TODO: Close sockets, etc.
+  // TODO: Close sockets
+  guemud::database::RoomDB.Shutdown();
 
 #ifdef WIN32
   WSACleanup();
