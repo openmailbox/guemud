@@ -106,8 +106,8 @@
     <ClCompile Include="src\commands\look_command.cc" />
     <ClCompile Include="src\commands\who_command.cc" />
     <ClCompile Include="src\database\cache.cc" />
-    <ClCompile Include="src\database\sqlite.cc" />
     <ClCompile Include="src\database\sqlite3.c" />
+    <ClCompile Include="src\database\sqlite_adapter.cc" />
     <ClCompile Include="src\entity.cc" />
     <ClCompile Include="src\error.cc" />
     <ClCompile Include="src\game.cc" />
@@ -132,8 +132,8 @@
     <ClInclude Include="src\commands\look_command.h" />
     <ClInclude Include="src\commands\who_command.h" />
     <ClInclude Include="src\database\cache.h" />
-    <ClInclude Include="src\database\sqlite.h" />
     <ClInclude Include="src\database\sqlite3.h" />
+    <ClInclude Include="src\database\sqlite_adapter.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\error.h" />
     <ClInclude Include="src\game.h" />

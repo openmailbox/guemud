@@ -75,7 +75,7 @@
     <ClCompile Include="src\database\cache.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\database\sqlite.cc">
+    <ClCompile Include="src\database\sqlite_adapter.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\database\sqlite3.c">
@@ -149,7 +149,7 @@
     <ClInclude Include="src\database\cache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\database\sqlite.h">
+    <ClInclude Include="src\database\sqlite_adapter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\database\sqlite3.h">
