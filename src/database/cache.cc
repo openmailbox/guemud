@@ -5,6 +5,7 @@ namespace database {
 
 Cache<Player> PlayerDB("players");
 Cache<Room> RoomDB("rooms");
+Cache<Portal> PortalDB("portals");
 
 }
 }

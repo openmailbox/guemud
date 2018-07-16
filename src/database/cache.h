@@ -7,6 +7,7 @@
 #include "../entity.h"
 #include "../logger.h"
 #include "../player.h"
+#include "../portal.h"
 #include "../room.h"
 #include "sqlite_adapter.h"
 
@@ -100,6 +101,7 @@ class Cache {
 
 extern Cache<Player> PlayerDB;
 extern Cache<Room> RoomDB;
+extern Cache<Portal> PortalDB;
 
 }  // namespace database
 }  // namespace guemud
