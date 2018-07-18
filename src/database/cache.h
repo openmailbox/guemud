@@ -84,6 +84,7 @@ class Cache {
       DatabaseRow row    = cursor.GetCurrentRow();
       EntityType* entity = new EntityType();
 
+      // TODO: Put remaining arbitrary attributes in the Entity attributes map
       entity->SetId(std::stoi(row.at("id")));
       entity->SetName(row.at("name"));
       entity->SetDescription(row.at("description"));
