@@ -19,21 +19,16 @@ DatabaseRow SqliteCursor::GetCurrentRow() {
     int type                = sqlite3_column_type(statement_, i);
     std::string column_name = sqlite3_column_name(statement_, i);
 
-    // TODO: Other data types
-    switch(type) {
-      case SQLITE_INTEGER:
-        row.insert(std::make_pair(column_name, std::to_string(sqlite3_column_int(statement_, i))));
-        break;
-      case SQLITE_FLOAT:
-        break;
-      case SQLITE_BLOB:
-        break;
-      case SQLITE_NULL:
-        break;
-      case SQLITE_TEXT:
-        std::string value((const char*)sqlite3_column_text(statement_, i));
-        row.insert(std::make_pair(column_name, value));
-        break;
+    // The only types we care about are strings and integers. Return everything as a string for now
+    if (type == SQLITE_INTEGER) {
+      int value = sqlite3_column_int(statement_, i);
+      row.insert(std::make_pair(column_name, std::to_string(value)));
+    } else if (type == SQLITE_TEXT) {
+      std::string value((const char*)sqlite3_column_text(statement_, i));
+      row.insert(std::make_pair(column_name, value));
+    } else {
+      SystemLog.Log("SQL Warning: Unable to parse data type " +
+                    std::to_string(type));
     }
   }
 
