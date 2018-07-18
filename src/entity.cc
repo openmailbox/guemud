@@ -20,6 +20,8 @@ namespace guemud {
     contents_.push_back(ref);
   }
 
+  int Entity::GetAttribute(std::string name) { return attributes_.at(name); }
+
   std::string Entity::GetDescription() { return description_; }
 
   EntityId Entity::GetId() { return id_; }
@@ -27,6 +29,10 @@ namespace guemud {
   Entity::Reference Entity::GetLocation() { return location_; }
 
   std::string Entity::GetName() { return name_; }
+
+  void Entity::SetAttribute(std::string name, int value) {
+    attributes_.insert(std::make_pair(name, value));
+  }
 
   void Entity::SetDescription(std::string desc) { description_ = desc; }
 
