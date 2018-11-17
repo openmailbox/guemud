@@ -41,6 +41,16 @@ void guemud::Game::DoAction(Action& action) {
   } else if (action.action_type == "chat") {
     Player* player = database::PlayerDB.Load(action.entities[0].id);
     Announce("<chat> " + player->GetName() + " says, \"" + action.data + "\"\n");
+  } else if (action.action_type == "quit") {
+    Player* player = database::PlayerDB.Load(action.entities[0].id);
+    Room* room = database::RoomDB.Load(player->GetLocation().id);
+    std::string name = player->GetName();
+
+    room->Remove(action.entities[0]);
+    player->GetConnection()->Close();
+    database::PlayerDB.Unload(player->GetId());
+
+    Announce("<chat> " + name + " has disconnected.\n");
   }
 }
 

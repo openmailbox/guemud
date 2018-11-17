@@ -21,22 +21,25 @@ namespace guemud {
         static const int kBufferSize = 1024;
 
         struct Compare {
-          bool operator()(const Connection* lhs, const Connection* rhs);
+          bool operator()(const Connection* lhs, const Connection* rhs) const;
         };
 
         Connection(int socket);
 
         void               AddHandler(ConnectionHandler* handler);
         void               BufferData(const char* buffer, int buffer_size);
+        void               Close();
         ConnectionHandler* GetHandler();
         Telnet*            GetProtocol();
         int                GetSocket() const;
+        bool               IsClosing() const;
         int                Receive();
         void               RemoveHandler();
         int                SendBuffer();
       private:
         char                           buffer_in_[kBufferSize];
         std::string                    buffer_out_;
+        bool                           closing_ = false;
         std::stack<ConnectionHandler*> handlers_;
         int                            socket_;
         Telnet                         telnet_;

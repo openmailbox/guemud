@@ -84,6 +84,9 @@
     <ClCompile Include="src\database\sqlite3.c">
       <Filter>Database</Filter>
     </ClCompile>
+    <ClCompile Include="src\commands\quit_command.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="src\portal.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\commands\quit_command.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

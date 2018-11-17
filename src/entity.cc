@@ -30,6 +30,32 @@ namespace guemud {
 
   std::string Entity::GetName() { return name_; }
 
+  void Entity::Remove(Entity& entity) {
+    std::vector<Entity::Reference>::iterator itr = BeginContents();
+
+    while (itr != EndContents()) {
+      if (entity.GetId() == itr->id) {
+        contents_.erase(itr);
+        return;
+      }
+
+      itr++;
+    }
+  }
+
+  void Entity::Remove(Entity::Reference reference) {
+    std::vector<Entity::Reference>::iterator itr = BeginContents();
+
+    while (itr != EndContents()) {
+      if (reference.id == itr->id) {
+        contents_.erase(itr);
+        return;
+      }
+
+      itr++;
+    }
+  }
+
   void Entity::SetAttribute(std::string name, int value) {
     attributes_.insert(std::make_pair(name, value));
   }

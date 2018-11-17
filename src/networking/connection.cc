@@ -15,6 +15,8 @@ namespace guemud {
       buffer_out_.append(buffer, buffer_size);
     }
 
+    void Connection::Close() { closing_ = true; }
+
     ConnectionHandler* Connection::GetHandler() {
       if (handlers_.size() == 0) return 0;
 
@@ -25,7 +27,9 @@ namespace guemud {
 
     int Connection::GetSocket() const { return socket_; }
 
-    bool Connection::Compare::operator()(const Connection* lhs, const Connection* rhs) {
+    bool Connection::IsClosing() const { return closing_; }
+
+    bool Connection::Compare::operator()(const Connection* lhs, const Connection* rhs) const {
       return lhs->GetSocket() < rhs->GetSocket();
     }
 

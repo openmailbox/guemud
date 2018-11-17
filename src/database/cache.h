@@ -45,7 +45,7 @@ class Cache {
 
     if (entity == NULL) {
       std::string query =
-        "select * from " + table_name_ + " where id = " + std::to_string(id);
+          "select * from " + table_name_ + " where id = " + std::to_string(id);
       LoadFromDatabase(query);
       entity = FindFromCache(id);
     }
@@ -55,11 +55,24 @@ class Cache {
 
   void Shutdown() { adapter_.Shutdown(); }
 
+  void Unload(EntityId id) {
+    typename std::vector<EntityType*>::iterator itr = cache_.begin();
+
+    while (itr != cache_.end()) {
+      if (id == (*itr)->GetId()) {
+        cache_.erase(itr);
+        return;
+      }
+
+      itr++;
+    }
+  }
+
  protected:
-  SqliteAdapter            adapter_;
+  SqliteAdapter adapter_;
   std::vector<EntityType*> cache_;
-  EntityId                 next_id_ = 1;  // TODO: Replace w/ DB primary key
-  std::string              table_name_;
+  EntityId next_id_ = 1;  // TODO: Replace w/ DB primary key
+  std::string table_name_;
 
   EntityType* FindFromCache(EntityId id) {
     typename std::vector<EntityType*>::iterator itr = cache_.begin();
@@ -82,11 +95,10 @@ class Cache {
     while (!cursor.IsFinished()) {
       std::stringstream msg;
 
-      DatabaseRow row    = cursor.GetCurrentRow();
+      DatabaseRow row = cursor.GetCurrentRow();
       EntityType* entity = new EntityType();
 
       std::map<std::string, std::string>::const_iterator itr = row.begin();
-      
 
       while (itr != row.end()) {
         if (itr->first.compare("id") == 0) {
@@ -101,7 +113,7 @@ class Cache {
 
         itr++;
       }
-      
+
       cache_.push_back(entity);
 
       msg << "LOAD " << typeid(entity).name() << " " << entity->GetId();

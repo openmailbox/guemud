@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClCompile Include="src\commands\chat_command.cc" />
     <ClCompile Include="src\commands\look_command.cc" />
+    <ClCompile Include="src\commands\quit_command.cc" />
     <ClCompile Include="src\commands\who_command.cc" />
     <ClCompile Include="src\database\cache.cc" />
     <ClCompile Include="src\database\sqlite3.c" />
@@ -130,6 +131,7 @@
     <ClInclude Include="src\command.h" />
     <ClInclude Include="src\commands\chat_command.h" />
     <ClInclude Include="src\commands\look_command.h" />
+    <ClInclude Include="src\commands\quit_command.h" />
     <ClInclude Include="src\commands\who_command.h" />
     <ClInclude Include="src\database\cache.h" />
     <ClInclude Include="src\database\sqlite3.h" />

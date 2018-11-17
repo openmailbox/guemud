@@ -16,6 +16,9 @@ void GameHandler::Handle(std::string data) {
   } else if (data.compare("look") == 0) {
     commands::LookCommand cmd;
     cmd.Execute(*player_);
+  } else if (data.compare("/quit") == 0) {
+    commands::QuitCommand cmd;
+    cmd.Execute(*player_);
   } else {
     Game::GetInstance().Announce(player_->GetName() + " says, \"" + data +
                                  "\"\n");

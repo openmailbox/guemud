@@ -18,6 +18,33 @@ namespace guemud {
       #endif
     }
 
+    void ConnectionManager::Close(Connection* connection) {
+      #ifdef WIN32
+        int shutdown_method = SD_BOTH;
+      #else
+        int shutdown_method = SHUT_RDWR;
+      #endif
+
+      guemud::SystemLog.Log("Shutting down " + std::to_string(connection->GetSocket()));
+      FD_CLR(connection->GetSocket(), &socket_set_);
+      shutdown(connection->GetSocket(), shutdown_method);
+      connections_.erase(connection);
+      delete connection;
+    }
+
+    void ConnectionManager::CloseConnections() {
+      std::set<Connection*>::iterator itr = connections_.begin();
+      std::set<Connection*>::iterator current;
+
+      while (itr != connections_.end()) {
+        current = itr++;
+
+        if ((*current)->IsClosing()) {
+          Close(*current);
+        }
+      }
+    }
+
     void ConnectionManager::Listen() {
       if (connections_.size() == 0) return;
 
@@ -45,17 +72,7 @@ namespace guemud {
         CheckErrors(err);
 
         if (err == 0) {
-          #ifdef WIN32
-            int shutdown_method = SD_BOTH;
-          #else
-            int shutdown_method = SHUT_RDWR;
-          #endif
-
-          guemud::SystemLog.Log("Shutting down " + std::to_string((*current)->GetSocket()));
-          FD_CLR((*current)->GetSocket(), &socket_set_);
-          shutdown((*current)->GetSocket(), shutdown_method);
-          connections_.erase(current);
-          delete *current;
+          Close(*current);
         }
       }
     }
@@ -63,6 +80,7 @@ namespace guemud {
     void ConnectionManager::Manage() {
       Listen();
       Send();
+      CloseConnections();
     }
 
     void ConnectionManager::NewConnection(int socket) {

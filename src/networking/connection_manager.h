@@ -26,6 +26,7 @@ namespace networking {
 class ConnectionManager {
  public:
   ConnectionManager();
+  void Close(Connection* connection);
   void Manage();
   void NewConnection(int socket);
 
@@ -35,6 +36,7 @@ class ConnectionManager {
   std::set<Connection*, Connection::Compare> connections_;
 
   void CheckErrors(int result);
+  void CloseConnections();
   void Listen();
   void Send();
 };

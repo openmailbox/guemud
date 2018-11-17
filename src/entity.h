@@ -28,6 +28,8 @@ class Entity {
     EntityId          GetId();
     Entity::Reference GetLocation();
     std::string       GetName();
+    void              Remove(Entity& entity);
+    void              Remove(Entity::Reference reference);
     void              SetAttribute(std::string name, int value);
     void              SetDescription(std::string desc);
     void              SetId(EntityId id);
