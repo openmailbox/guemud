@@ -148,6 +148,7 @@
     <ClInclude Include="src\networking\socket.h" />
     <ClInclude Include="src\networking\telnet.h" />
     <ClInclude Include="src\player.h" />
+    <ClInclude Include="src\portal.h" />
     <ClInclude Include="src\room.h" />
     <ClInclude Include="src\timed_action.h" />
   </ItemGroup>

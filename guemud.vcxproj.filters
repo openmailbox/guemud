@@ -158,5 +158,8 @@
     <ClInclude Include="src\database\cache.h">
       <Filter>Database</Filter>
     </ClInclude>
+    <ClInclude Include="src\portal.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

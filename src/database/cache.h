@@ -85,11 +85,23 @@ class Cache {
       DatabaseRow row    = cursor.GetCurrentRow();
       EntityType* entity = new EntityType();
 
-      // TODO: Put remaining arbitrary attributes in the Entity attributes map
-      entity->SetId(std::stoi(row.at("id")));
-      entity->SetName(row.at("name"));
-      entity->SetDescription(row.at("description"));
+      std::map<std::string, std::string>::const_iterator itr = row.begin();
+      
 
+      while (itr != row.end()) {
+        if (itr->first.compare("id") == 0) {
+          entity->SetId(std::stoi(itr->second));
+        } else if (itr->first.compare("name") == 0) {
+          entity->SetName(itr->second);
+        } else if (itr->first.compare("description") == 0) {
+          entity->SetDescription(itr->second);
+        } else {
+          entity->SetAttribute(itr->first, std::stoi(itr->second));
+        }
+
+        itr++;
+      }
+      
       cache_.push_back(entity);
 
       msg << "LOAD " << typeid(entity).name() << " " << entity->GetId();
